@@ -38,9 +38,9 @@ export function PulseDashboard({ compact = false }: { compact?: boolean }) {
   const agg = BASE_AGGREGATE[range];
 
   return (
-    <div className="overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface/80 backdrop-blur-sm">
+    <div className="panel overflow-hidden">
       {/* header: range tabs + live aggregate */}
-      <div className="flex flex-col gap-4 border-b border-line bg-surface-2/50 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 border-b border-white/[0.06] bg-white/[0.02] p-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="inline-flex rounded-full border border-line p-0.5">
           {RANGES.map((r) => (
             <button

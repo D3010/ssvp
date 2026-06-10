@@ -66,13 +66,6 @@ export function PulseTicker({
   if (variant === "bare") return <div className={className}>{inner}</div>;
 
   return (
-    <div
-      className={cn(
-        "rounded-[var(--radius-card)] border border-line bg-surface/70 p-6 backdrop-blur-sm glow-pulse",
-        className,
-      )}
-    >
-      {inner}
-    </div>
+    <div className={cn("panel panel-pulse p-6", className)}>{inner}</div>
   );
 }

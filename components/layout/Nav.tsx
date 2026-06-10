@@ -28,7 +28,7 @@ export function Nav() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         scrolled || mobileOpen
-          ? "border-b border-line bg-base/85 backdrop-blur-md"
+          ? "glass border-b border-white/[0.07]"
           : "border-b border-transparent",
       )}
     >

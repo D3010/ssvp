@@ -19,9 +19,9 @@ const sizes: Record<Size, string> = {
 const variants: Record<Variant, string> = {
   // pulse-green = proof. The primary CTA is the only button allowed to be green.
   primary:
-    "bg-pulse text-ink hover:bg-pulse/90 shadow-[0_0_30px_-6px_color-mix(in_srgb,var(--color-pulse)_50%,transparent)]",
+    "bg-gradient-to-b from-[#62ffb6] to-pulse text-ink font-semibold hover:to-[#35e996] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_8px_24px_-6px_color-mix(in_srgb,var(--color-pulse)_55%,transparent)]",
   secondary:
-    "border border-line bg-surface/60 text-text hover:border-muted hover:bg-surface",
+    "border border-white/10 bg-white/[0.03] text-text backdrop-blur-sm hover:border-white/20 hover:bg-white/[0.06] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]",
   ghost: "text-ice hover:text-text",
 };
 
