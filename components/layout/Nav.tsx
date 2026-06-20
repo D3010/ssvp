@@ -28,7 +28,7 @@ export function Nav() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         scrolled || mobileOpen
-          ? "glass border-b border-white/[0.07]"
+          ? "glass border-b border-line shadow-[0_1px_24px_-12px_rgba(20,21,43,0.25)]"
           : "border-b border-transparent",
       )}
     >
@@ -71,7 +71,7 @@ export function Nav() {
                         transition={{ duration: 0.18 }}
                         className="absolute left-1/2 top-full z-50 w-[640px] -translate-x-1/2 pt-3"
                       >
-                        <div className="grid grid-cols-3 gap-2 rounded-2xl border border-line bg-surface p-3 shadow-2xl shadow-black/40">
+                        <div className="grid grid-cols-3 gap-2 rounded-2xl border border-line bg-surface p-3 shadow-[0_24px_60px_-24px_rgba(20,21,43,0.25)]">
                           {PILLARS.map((pillar) => (
                             <div key={pillar.id} className="rounded-xl p-2">
                               <p className="px-2 pb-2 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-muted">

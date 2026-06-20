@@ -17,12 +17,12 @@ const sizes: Record<Size, string> = {
 };
 
 const variants: Record<Variant, string> = {
-  // pulse-green = proof. The primary CTA is the only button allowed to be green.
+  // brand gradient = the primary action. Animated blue→violet sweep, white text.
   primary:
-    "bg-gradient-to-b from-[#62ffb6] to-pulse text-ink font-semibold hover:to-[#35e996] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_8px_24px_-6px_color-mix(in_srgb,var(--color-pulse)_55%,transparent)]",
+    "animate-gradient-pan bg-[linear-gradient(110deg,var(--brand-1),var(--brand-2)_45%,var(--brand-3))] text-white font-semibold shadow-[0_10px_28px_-8px_color-mix(in_srgb,var(--brand-2)_60%,transparent)] hover:shadow-[0_14px_34px_-8px_color-mix(in_srgb,var(--brand-2)_75%,transparent)]",
   secondary:
-    "border border-white/10 bg-white/[0.03] text-text backdrop-blur-sm hover:border-white/20 hover:bg-white/[0.06] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]",
-  ghost: "text-ice hover:text-text",
+    "border border-line bg-white text-text hover:border-pulse/40 hover:bg-surface-2 shadow-[0_1px_2px_0_rgba(20,21,43,0.05)]",
+  ghost: "text-pulse hover:text-text",
 };
 
 export function Button({

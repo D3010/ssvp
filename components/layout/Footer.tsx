@@ -6,7 +6,7 @@ import { SITE } from "@/lib/utils";
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-base">
+    <footer className="border-t border-line bg-surface-2/50">
       <div className="container-wide py-14">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div className="max-w-xs">

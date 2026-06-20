@@ -37,7 +37,7 @@ export function HeroDashboard() {
             Proof Ledger
           </span>
         </div>
-        <span className="rounded-full border border-white/10 px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-muted/80">
+        <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-muted/80">
           Sample
         </span>
       </div>
@@ -91,7 +91,7 @@ export function HeroDashboard() {
       {/* two REAL proof tiles */}
       <div className="relative mt-2 grid grid-cols-2 gap-2.5">
         {PROOF.map((p) => (
-          <div key={p.label} className="rounded-xl border border-white/[0.06] bg-base/40 p-3">
+          <div key={p.label} className="rounded-xl border border-line bg-surface-2/60 p-3">
             {p.value !== null ? (
               <Metric value={p.value} format={p.format} size="sm" live={false} className="!gap-0.5" />
             ) : (
@@ -105,7 +105,7 @@ export function HeroDashboard() {
       </div>
 
       {/* sample event stream — illustrates the product, claims no totals */}
-      <div className="relative mt-4 border-t border-white/[0.06] pt-3">
+      <div className="relative mt-4 border-t border-line pt-3">
         {rows.slice(0, 2).map((row) => (
           <div key={row.id} className="flex items-center gap-3 py-1.5 font-mono text-[0.72rem]">
             <span className="tabular text-muted/70">{row.ts}</span>

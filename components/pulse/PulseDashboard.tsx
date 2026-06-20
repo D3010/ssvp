@@ -40,7 +40,7 @@ export function PulseDashboard({ compact = false }: { compact?: boolean }) {
   return (
     <div className="panel overflow-hidden">
       {/* header: range tabs + live aggregate */}
-      <div className="flex flex-col gap-4 border-b border-white/[0.06] bg-white/[0.02] p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 border-b border-line bg-surface-2/60 p-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="inline-flex rounded-full border border-line p-0.5">
           {RANGES.map((r) => (
             <button
@@ -49,7 +49,7 @@ export function PulseDashboard({ compact = false }: { compact?: boolean }) {
               onClick={() => setRange(r.id)}
               className={cn(
                 "rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors",
-                range === r.id ? "bg-pulse text-ink" : "text-muted hover:text-text",
+                range === r.id ? "bg-pulse text-white" : "text-muted hover:text-text",
               )}
             >
               {r.label}

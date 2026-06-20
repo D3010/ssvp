@@ -1,26 +1,32 @@
-import { Hero } from "@/components/sections/Hero";
-import { CredibilityStrip } from "@/components/sections/CredibilityStrip";
-import { SplitNarrative } from "@/components/sections/SplitNarrative";
-import { PulseFeatureSection } from "@/components/sections/PulseFeatureSection";
-import { ServicesGrid } from "@/components/sections/ServicesGrid";
-import { ProcessSteps } from "@/components/sections/ProcessSteps";
-import { FeaturedCase } from "@/components/sections/FeaturedCase";
-import { FounderBlock } from "@/components/sections/FounderBlock";
-import { TableStakesGrid } from "@/components/sections/TableStakesGrid";
-import { FinalCTA } from "@/components/sections/FinalCTA";
+import { Hero } from "@/components/home/Hero";
+import { CredibilityStrip } from "@/components/home/CredibilityStrip";
+import { ProblemStatement } from "@/components/home/ProblemStatement";
+import { SolutionsGrid } from "@/components/home/SolutionsGrid";
+import { PulseFeature } from "@/components/home/PulseFeature";
+import { Integrations } from "@/components/home/Integrations";
+import { Differentiators } from "@/components/home/Differentiators";
+import { Process } from "@/components/home/Process";
+import { CaseStudies } from "@/components/home/CaseStudies";
+import { Testimonials } from "@/components/home/Testimonials";
+import { Enterprise } from "@/components/home/Enterprise";
+import { HomeFAQ } from "@/components/home/HomeFAQ";
+import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function Home() {
   return (
     <>
       <Hero />
       <CredibilityStrip />
-      <SplitNarrative />
-      <PulseFeatureSection />
-      <ServicesGrid />
-      <ProcessSteps />
-      <FeaturedCase />
-      <FounderBlock />
-      <TableStakesGrid />
+      <ProblemStatement />
+      <SolutionsGrid />
+      <PulseFeature />
+      <Integrations />
+      <Differentiators />
+      <Process />
+      <CaseStudies />
+      <Testimonials />
+      <Enterprise />
+      <HomeFAQ />
       <FinalCTA />
     </>
   );
