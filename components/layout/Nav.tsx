@@ -8,6 +8,7 @@ import { Wordmark } from "@/components/ui/Wordmark";
 import { Button } from "@/components/ui/Button";
 import { PRIMARY_NAV } from "@/content/nav";
 import { PILLARS, servicesByPillar } from "@/content/services";
+import { SERVICE_ICONS, SERVICE_MENU_LABEL } from "./serviceIcons";
 import { cn } from "@/lib/utils";
 
 export function Nav() {
@@ -69,28 +70,46 @@ export function Nav() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 6 }}
                         transition={{ duration: 0.18 }}
-                        className="absolute left-1/2 top-full z-50 w-[640px] -translate-x-1/2 pt-3"
+                        className="absolute left-1/2 top-full z-50 w-[740px] -translate-x-1/2 pt-3"
                       >
-                        <div className="grid grid-cols-3 gap-2 rounded-2xl border border-line bg-surface p-3 shadow-[0_24px_60px_-24px_rgba(20,21,43,0.25)]">
-                          {PILLARS.map((pillar) => (
-                            <div key={pillar.id} className="rounded-xl p-2">
-                              <p className="px-2 pb-2 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-muted">
-                                {pillar.label}
-                              </p>
-                              <ul className="space-y-0.5">
-                                {servicesByPillar(pillar.id).map((s) => (
-                                  <li key={s.slug}>
-                                    <Link
-                                      href={`/services/${s.slug}`}
-                                      className="block rounded-lg px-2 py-1.5 text-[0.8125rem] text-muted transition-colors hover:bg-surface-2 hover:text-text"
-                                    >
-                                      {s.name}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
+                        <div className="rounded-2xl border border-line bg-surface p-4 shadow-[0_24px_60px_-24px_rgba(20,21,43,0.28)]">
+                          <div className="grid grid-cols-3 gap-x-3">
+                            {PILLARS.map((pillar) => (
+                              <div key={pillar.id}>
+                                <p className="px-2.5 pb-1.5 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-muted/80">
+                                  {pillar.label}
+                                </p>
+                                <ul>
+                                  {servicesByPillar(pillar.id).map((s) => (
+                                    <li key={s.slug}>
+                                      <Link
+                                        href={`/services/${s.slug}`}
+                                        className="group/item flex items-center gap-3 rounded-xl px-2.5 py-2 transition-colors hover:bg-surface-2"
+                                      >
+                                        <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-pulse/10 text-pulse transition-colors group-hover/item:bg-pulse group-hover/item:text-white">
+                                          <svg viewBox="0 0 24 24" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d={SERVICE_ICONS[s.slug]} />
+                                          </svg>
+                                        </span>
+                                        <span className="text-[0.84rem] font-medium leading-tight text-text/85 group-hover/item:text-text">
+                                          {SERVICE_MENU_LABEL[s.slug] ?? s.name}
+                                        </span>
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-2 border-t border-line pt-2">
+                            <Link
+                              href="/services"
+                              className="group/all flex items-center justify-between rounded-xl px-2.5 py-2 transition-colors hover:bg-surface-2"
+                            >
+                              <span className="text-[0.84rem] font-semibold text-text">Explore all services</span>
+                              <span aria-hidden className="text-pulse transition-transform group-hover/all:translate-x-1">→</span>
+                            </Link>
+                          </div>
                         </div>
                       </motion.div>
                     )}
