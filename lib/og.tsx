@@ -6,12 +6,12 @@ export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
 const COLORS = {
-  base: "#0A0B10",
-  surface: "#12141C",
-  line: "#23262F",
-  pulse: "#3DFFA2",
-  text: "#E8E6E1",
-  muted: "#8A8F9E",
+  base: "#0B1020",
+  surface: "#141936",
+  line: "#2A2F52",
+  pulse: "#818CF8",
+  text: "#F5F6FF",
+  muted: "#9AA0B4",
 };
 
 async function fonts() {

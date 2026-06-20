@@ -5,6 +5,7 @@ import { SolutionsGrid } from "@/components/home/SolutionsGrid";
 import { PulseFeature } from "@/components/home/PulseFeature";
 import { Integrations } from "@/components/home/Integrations";
 import { Differentiators } from "@/components/home/Differentiators";
+import { PullQuote } from "@/components/home/PullQuote";
 import { Process } from "@/components/home/Process";
 import { CaseStudies } from "@/components/home/CaseStudies";
 import { Testimonials } from "@/components/home/Testimonials";
@@ -22,12 +23,26 @@ export default function Home() {
       <PulseFeature />
       <Integrations />
       <Differentiators />
-      <Process />
-      <CaseStudies />
-      <Testimonials />
-      <Enterprise />
-      <HomeFAQ />
-      <FinalCTA />
+      <PullQuote />
+      {/* below-the-fold: skip offscreen render work until near the viewport */}
+      <div className="cv-auto">
+        <Process />
+      </div>
+      <div className="cv-auto">
+        <CaseStudies />
+      </div>
+      <div className="cv-auto">
+        <Testimonials />
+      </div>
+      <div className="cv-auto">
+        <Enterprise />
+      </div>
+      <div className="cv-auto">
+        <HomeFAQ />
+      </div>
+      <div className="cv-auto">
+        <FinalCTA />
+      </div>
     </>
   );
 }

@@ -31,9 +31,10 @@
   --color-muted: #5b6173;
   --color-danger: #e11d48;
 
-  --font-display: var(--font-clash), "Inter", system-ui, sans-serif;
+  --font-display: var(--font-sora), "Inter", system-ui, sans-serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+  /* system monospace — zero download; only used for tiny telemetry labels */
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
 
   /* fluid type scale */
   --text-display: clamp(2.75rem, 6vw, 6rem);
@@ -66,11 +67,12 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* every number on the site renders in mono — the telemetry signature */
+  /* numbers render in the display sans with tabular figures — clean + premium */
   .tabular {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum";
+    letter-spacing: -0.01em;
   }
 
   h1,
@@ -79,8 +81,8 @@
   .font-display {
     font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.04;
+    letter-spacing: -0.022em;
+    line-height: 1.06;
     color: var(--color-text);
   }
 
@@ -223,6 +225,17 @@
   .tilt-layer {
     transform: translateZ(40px);
   }
+
+  /* perf: skip rendering far-offscreen sections until they're near the viewport */
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 760px;
+  }
+
+  /* soft drop shadow for floating pharmacy art (cheaper than a blur layer) */
+  .art-shadow {
+    filter: drop-shadow(0 24px 30px rgba(79, 70, 229, 0.22));
+  }
 }
 
 /* ── motion keyframes ─────────────────────────────────────────────── */
@@ -258,6 +271,30 @@
 }
 .animate-float-slow {
   animation: ssvp-float 9s ease-in-out infinite;
+}
+
+/* slow rotation for the molecule / orbital pharmacy art */
+@keyframes ssvp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: ssvp-spin 44s linear infinite;
+}
+
+/* gentle 3D bob + sway for capsules and tablets */
+@keyframes ssvp-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--bob-rot, 0deg));
+  }
+  50% {
+    transform: translateY(-16px) rotate(calc(var(--bob-rot, 0deg) + 4deg));
+  }
+}
+.animate-bob {
+  animation: ssvp-bob 7s ease-in-out infinite;
 }
 
 /* logo / integration marquee */

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { clash, inter, jetbrains } from "./fonts";
+import { sora, inter } from "./fonts";
 import "./globals.css";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -44,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${clash.variable} ${inter.variable} ${jetbrains.variable}`}
+      className={`${sora.variable} ${inter.variable}`}
     >
       <body className="min-h-dvh antialiased">
         <JsonLd data={organizationJsonLd()} />
