@@ -7,7 +7,8 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
  */
 const TOOLS = [
   "PioneerRx", "BestRx", "Liberty", "PrimeRx", "RedSail", "Pharmetika",
-  "HubSpot", "Salesforce", "Twilio", "athenahealth", "QS/1", "Epic",
+  "LifeFile", "PK Software", "Framework", "QS/1", "HubSpot", "Salesforce",
+  "Twilio", "athenahealth", "Epic",
 ];
 
 function Row({ reverse = false }: { reverse?: boolean }) {

@@ -194,23 +194,23 @@
       0 24px 60px -28px color-mix(in srgb, var(--color-pulse) 55%, transparent);
   }
 
-  /* glassmorphism for the nav and floating panels */
+  /* glassmorphism for the nav — lighter blur keeps scroll repaints cheap */
   .glass {
-    background: color-mix(in srgb, #ffffff 72%, transparent);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background: color-mix(in srgb, #ffffff 85%, transparent);
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
   }
 
-  /* frosted floating card used in the hero 3D stack */
+  /* frosted floating card used in the hero stack — near-opaque, minimal blur */
   .glass-card {
-    background: color-mix(in srgb, #ffffff 82%, transparent);
+    background: color-mix(in srgb, #ffffff 92%, transparent);
     border: 1px solid rgba(255, 255, 255, 0.7);
     box-shadow:
       inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
       0 28px 60px -24px rgba(79, 70, 229, 0.28),
       0 8px 20px -10px rgba(20, 21, 43, 0.14);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 
   .radial-fade {
@@ -241,19 +241,21 @@
 /* ── motion keyframes ─────────────────────────────────────────────── */
 
 /* slow-drifting ambient brand blobs (GPU friendly) */
+/* translate + opacity only — no scale, so the blurred layer never re-rasterizes */
 @keyframes ssvp-aurora {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.7;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.65;
   }
   50% {
-    transform: translate3d(3%, -3%, 0) scale(1.12);
-    opacity: 1;
+    transform: translate3d(4%, -3%, 0);
+    opacity: 0.9;
   }
 }
 .animate-aurora {
-  animation: ssvp-aurora 16s ease-in-out infinite;
+  animation: ssvp-aurora 18s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* gentle vertical float for the hero 3D cards */

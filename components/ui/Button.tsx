@@ -17,9 +17,9 @@ const sizes: Record<Size, string> = {
 };
 
 const variants: Record<Variant, string> = {
-  // brand gradient = the primary action. Animated blue→violet sweep, white text.
+  // brand gradient = the primary action. Static blue→violet sweep, white text.
   primary:
-    "animate-gradient-pan bg-[linear-gradient(110deg,var(--brand-1),var(--brand-2)_45%,var(--brand-3))] text-white font-semibold shadow-[0_10px_28px_-8px_color-mix(in_srgb,var(--brand-2)_60%,transparent)] hover:shadow-[0_14px_34px_-8px_color-mix(in_srgb,var(--brand-2)_75%,transparent)]",
+    "bg-[linear-gradient(110deg,var(--brand-1),var(--brand-2)_45%,var(--brand-3))] text-white font-semibold shadow-[0_10px_28px_-8px_color-mix(in_srgb,var(--brand-2)_60%,transparent)] hover:shadow-[0_14px_34px_-8px_color-mix(in_srgb,var(--brand-2)_75%,transparent)]",
   secondary:
     "border border-line bg-white text-text hover:border-pulse/40 hover:bg-surface-2 shadow-[0_1px_2px_0_rgba(20,21,43,0.05)]",
   ghost: "text-pulse hover:text-text",

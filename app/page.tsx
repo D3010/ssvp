@@ -4,6 +4,7 @@ import { ProblemStatement } from "@/components/home/ProblemStatement";
 import { SolutionsGrid } from "@/components/home/SolutionsGrid";
 import { PulseFeature } from "@/components/home/PulseFeature";
 import { Integrations } from "@/components/home/Integrations";
+import { BuiltForReality } from "@/components/home/BuiltForReality";
 import { Differentiators } from "@/components/home/Differentiators";
 import { PullQuote } from "@/components/home/PullQuote";
 import { Process } from "@/components/home/Process";
@@ -22,6 +23,9 @@ export default function Home() {
       <SolutionsGrid />
       <PulseFeature />
       <Integrations />
+      <div className="cv-auto">
+        <BuiltForReality />
+      </div>
       <Differentiators />
       <PullQuote />
       {/* below-the-fold: skip offscreen render work until near the viewport */}
