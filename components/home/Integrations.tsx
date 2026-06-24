@@ -2,8 +2,9 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
 /**
- * "Works with your stack" — an infinite marquee of the systems SSVP integrates
- * with. Two identical halves translate -50% for a seamless loop; edges fade out.
+ * "Works with your stack" — a single infinite marquee of the systems SSVP
+ * integrates with. The track holds two copies of the list and translates -50%
+ * for a seamless loop, so each logo only reads once on screen; edges fade out.
  */
 const TOOLS = [
   "PioneerRx", "BestRx", "Liberty", "PrimeRx", "RedSail", "Pharmetika",
@@ -11,11 +12,11 @@ const TOOLS = [
   "Twilio", "athenahealth", "Epic",
 ];
 
-function Row({ reverse = false }: { reverse?: boolean }) {
+function Row() {
   const items = [...TOOLS, ...TOOLS];
   return (
     <div className="flex w-max">
-      <div className={`flex w-max gap-4 pr-4 animate-marquee ${reverse ? "[animation-direction:reverse]" : ""}`}>
+      <div className="flex w-max gap-4 pr-4 animate-marquee">
         {items.map((t, i) => (
           <span
             key={`${t}-${i}`}
@@ -46,12 +47,9 @@ export function Integrations() {
         </Reveal>
       </div>
 
-      {/* full-bleed marquee with edge fades */}
+      {/* full-bleed marquee with edge fades — one row, no duplicate stack */}
       <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
-        <div className="flex flex-col gap-4">
-          <Row />
-          <Row reverse />
-        </div>
+        <Row />
       </div>
     </section>
   );
