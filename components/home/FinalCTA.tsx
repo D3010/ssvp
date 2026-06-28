@@ -9,7 +9,7 @@ export function FinalCTA() {
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-dots radial-fade opacity-40" />
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--brand-2)_22%,transparent),transparent_62%)] blur-3xl animate-aurora"
+        className="pointer-events-none absolute left-1/2 top-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--brand-2)_22%,transparent),transparent_62%)] blur-3xl"
       />
 
       <div className="container-page relative text-center">
@@ -25,7 +25,7 @@ export function FinalCTA() {
             your software or your workflow. And you&apos;ll watch the results land on Pulse.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/contact" size="lg" magnetic>
+            <Button href="/contact" size="lg">
               Book a demo
               <span aria-hidden>→</span>
             </Button>

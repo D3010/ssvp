@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
@@ -33,14 +32,12 @@ const QUOTES = [
 ];
 
 export function Testimonials() {
-  const reduce = useReducedMotion();
   const [i, setI] = useState(0);
 
   useEffect(() => {
-    if (reduce) return;
     const id = setInterval(() => setI((v) => (v + 1) % QUOTES.length), 5500);
     return () => clearInterval(id);
-  }, [reduce]);
+  }, []);
 
   const q = QUOTES[i];
 
@@ -59,26 +56,20 @@ export function Testimonials() {
             &ldquo;
           </span>
           <div className="relative min-h-[180px]">
-            <AnimatePresence mode="wait">
-              <motion.blockquote
-                key={i}
-                initial={reduce ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduce ? undefined : { opacity: 0, y: -12 }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <p className="text-balance text-xl font-medium text-text md:text-2xl">{q.quote}</p>
-                <footer className="mt-6 flex items-center gap-3">
-                  <span className="grid size-10 place-items-center rounded-full bg-[linear-gradient(135deg,var(--brand-1),var(--brand-3))] font-display text-sm font-semibold text-white">
-                    {q.name.charAt(0)}
-                  </span>
-                  <span>
-                    <span className="block text-sm font-medium text-text">{q.name}</span>
-                    <span className="block font-mono text-[0.68rem] uppercase tracking-[0.12em] text-muted">{q.role}</span>
-                  </span>
-                </footer>
-              </motion.blockquote>
-            </AnimatePresence>
+            {/* keyed so the brief CSS fade replays on each rotation; under
+                prefers-reduced-motion the global rule makes the swap instant */}
+            <blockquote key={i} className="animate-fade-in">
+              <p className="text-balance text-xl font-medium text-text md:text-2xl">{q.quote}</p>
+              <footer className="mt-6 flex items-center gap-3">
+                <span className="grid size-10 place-items-center rounded-full bg-[linear-gradient(135deg,var(--brand-1),var(--brand-3))] font-display text-sm font-semibold text-white">
+                  {q.name.charAt(0)}
+                </span>
+                <span>
+                  <span className="block text-sm font-medium text-text">{q.name}</span>
+                  <span className="block font-mono text-[0.68rem] uppercase tracking-[0.12em] text-muted">{q.role}</span>
+                </span>
+              </footer>
+            </blockquote>
           </div>
 
           <div className="mt-8 flex items-center gap-2">

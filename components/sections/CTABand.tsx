@@ -27,7 +27,7 @@ export function CTABand({
           <h2 className="text-[length:var(--text-h2)] text-balance">{title}</h2>
           {sub && <p className="mx-auto mt-4 max-w-xl text-lg text-muted text-pretty">{sub}</p>}
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button href={href} size="lg" magnetic>
+            <Button href={href} size="lg">
               {cta}
               <span aria-hidden="true">→</span>
             </Button>

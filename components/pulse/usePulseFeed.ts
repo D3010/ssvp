@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "motion/react";
 import {
   BASE_AGGREGATE,
   generateLedger,
@@ -16,7 +15,7 @@ import {
  *
  * Initial render is the seeded set (SSR === CSR, no hydration mismatch).
  * New rows stream in only after mount, on a client interval — and never when
- * the user prefers reduced motion.
+ * the user prefers reduced motion (checked via matchMedia, no JS animation lib).
  */
 export function usePulseFeed({
   initialRange = "all",
@@ -27,7 +26,6 @@ export function usePulseFeed({
   count?: number;
   stream?: boolean;
 } = {}) {
-  const reduce = useReducedMotion();
   const [range, setRange] = useState<PulseRange>(initialRange);
   const [rows, setRows] = useState<PulseMetric[]>(() => generateLedger(count, 42));
   const seedRef = useRef(1000);
@@ -35,7 +33,12 @@ export function usePulseFeed({
   const aggregate: PulseAggregate = BASE_AGGREGATE[range];
 
   useEffect(() => {
-    if (!stream || reduce) return;
+    if (!stream) return;
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
     const id = setInterval(() => {
       seedRef.current += 1;
       const [fresh] = generateLedger(1, seedRef.current);
@@ -48,7 +51,7 @@ export function usePulseFeed({
       setRows((prev) => [{ ...fresh, id: `live-${seedRef.current}`, ts }, ...prev].slice(0, 24));
     }, 3600);
     return () => clearInterval(id);
-  }, [stream, reduce]);
+  }, [stream]);
 
   return { rows, aggregate, range, setRange };
 }

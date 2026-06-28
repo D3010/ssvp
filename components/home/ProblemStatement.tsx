@@ -1,16 +1,12 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
 /**
  * The classic "volume is rising, capacity isn't" diverging-lines graphic.
- * Two SVG paths draw in on scroll: demand climbs, headcount stays flat.
+ * The SVG paths render fully drawn on the server (no JS draw-in) so the chart
+ * is visible instantly.
  */
 export function ProblemStatement() {
-  const reduce = useReducedMotion();
-
   return (
     <section className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -53,27 +49,19 @@ export function ProblemStatement() {
               </div>
               <svg viewBox="0 0 400 200" className="mt-4 w-full" fill="none">
                 {/* demand — climbing */}
-                <motion.path
+                <path
                   d="M0 170 C 80 160, 140 120, 200 100 S 320 40, 400 18"
                   stroke="url(#demand)"
                   strokeWidth="3"
                   strokeLinecap="round"
-                  initial={reduce ? false : { pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
                 />
                 {/* capacity — flat */}
-                <motion.path
+                <path
                   d="M0 150 C 100 148, 200 146, 300 145 S 380 144, 400 144"
                   stroke="var(--color-line)"
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeDasharray="2 8"
-                  initial={reduce ? false : { pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.3, delay: 0.2 }}
                 />
                 <defs>
                   <linearGradient id="demand" x1="0" y1="0" x2="400" y2="0">

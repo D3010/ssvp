@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import { usePulseFeed } from "./usePulseFeed";
 import { LedgerRow } from "./LedgerRow";
 import { LiveDot } from "@/components/ui/LiveDot";
@@ -24,7 +23,8 @@ const RANGES: { id: PulseRange; label: string }[] = [
 
 /**
  * The interactive demo dashboard. Tabs (week/all), system filters, and a
- * streaming ledger. Honest about being a demo of the live contract.
+ * streaming ledger. New rows render in with a lightweight CSS highlight
+ * (LedgerRow's `fresh` flag) — no animation library.
  */
 export function PulseDashboard({ compact = false }: { compact?: boolean }) {
   const { rows, range, setRange } = usePulseFeed({ initialRange: "all", count: compact ? 6 : 10 });
@@ -94,19 +94,9 @@ export function PulseDashboard({ compact = false }: { compact?: boolean }) {
 
       {/* streaming rows */}
       <div className="max-h-[22rem] overflow-hidden">
-        <AnimatePresence initial={false}>
-          {visible.map((row) => (
-            <motion.div
-              key={row.id}
-              layout
-              initial={row.id.startsWith("live-") ? { opacity: 0, height: 0 } : false}
-              animate={{ opacity: 1, height: "auto" }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <LedgerRow row={row} fresh={row.id.startsWith("live-")} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
+        {visible.map((row) => (
+          <LedgerRow key={row.id} row={row} fresh={row.id.startsWith("live-")} />
+        ))}
         {visible.length === 0 && (
           <p className="px-4 py-8 text-center font-mono text-sm text-muted">
             No {filter} events in this window.

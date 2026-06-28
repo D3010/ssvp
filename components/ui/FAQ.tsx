@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import type { FaqItem } from "@/content/services";
 import { cn } from "@/lib/utils";
 
 /**
- * Accessible accordion. JSON-LD (FAQPage) is emitted separately by the page so
- * search engines see the answers regardless of open/closed state.
+ * Accessible accordion. The answer is always in the DOM (good for SEO and for
+ * the FAQPage JSON-LD the page emits separately) and expands via a pure-CSS
+ * grid-rows transition — no animation library, no layout-measuring JS.
  */
 export function FAQ({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(0);
@@ -39,19 +39,16 @@ export function FAQ({ items }: { items: FaqItem[] }) {
                 </span>
               </button>
             </h3>
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="overflow-hidden"
-                >
-                  <p className="max-w-2xl pb-6 text-muted text-pretty">{item.a}</p>
-                </motion.div>
+            <div
+              className={cn(
+                "grid transition-[grid-template-rows] duration-300 ease-out",
+                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
               )}
-            </AnimatePresence>
+            >
+              <div className="overflow-hidden">
+                <p className="max-w-2xl pb-6 text-muted text-pretty">{item.a}</p>
+              </div>
+            </div>
           </div>
         );
       })}

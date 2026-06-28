@@ -1,15 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-  useMotionTemplate,
-  useReducedMotion,
-} from "motion/react";
-import type { MouseEvent, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
@@ -72,54 +62,27 @@ const SOLUTIONS: Solution[] = [
   },
 ];
 
-function TiltCard({ s, i }: { s: Solution; i: number }) {
-  const reduce = useReducedMotion();
-  const mx = useMotionValue(0.5);
-  const my = useMotionValue(0.5);
-  const rx = useSpring(useTransform(my, [0, 1], [6, -6]), { stiffness: 200, damping: 20 });
-  const ry = useSpring(useTransform(mx, [0, 1], [-6, 6]), { stiffness: 200, damping: 20 });
-  const glowX = useTransform(mx, (v) => `${v * 100}%`);
-  const glowY = useTransform(my, (v) => `${v * 100}%`);
-  const glow = useMotionTemplate`radial-gradient(220px circle at ${glowX} ${glowY}, color-mix(in srgb, var(--color-pulse) 16%, transparent), transparent 70%)`;
-
-  function onMove(e: MouseEvent<HTMLAnchorElement>) {
-    if (reduce) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set((e.clientX - r.left) / r.width);
-    my.set((e.clientY - r.top) / r.height);
-  }
-  function reset() {
-    mx.set(0.5);
-    my.set(0.5);
-  }
-
+function Card({ s }: { s: Solution }) {
   return (
-    <Reveal delay={i * 0.05} as="article">
-      <motion.div style={reduce ? undefined : { rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }} className="h-full [perspective:1000px]">
-        <Link
-          href={s.href}
-          onMouseMove={onMove}
-          onMouseLeave={reset}
-          className="panel group relative flex h-full flex-col overflow-hidden p-7 transition-all duration-300 hover:-translate-y-1 hover:border-pulse/40 hover:shadow-[0_26px_60px_-28px_color-mix(in_srgb,var(--color-pulse)_55%,transparent)]"
-        >
-          <motion.div aria-hidden className="pointer-events-none absolute inset-0" style={reduce ? undefined : { background: glow }} />
-          <div className="relative" style={reduce ? undefined : { transform: "translateZ(40px)" }}>
-            <span className="grid size-12 place-items-center rounded-2xl bg-[linear-gradient(135deg,var(--brand-1),var(--brand-3))] text-white shadow-[0_10px_24px_-10px_color-mix(in_srgb,var(--brand-2)_70%,transparent)]">
-              {s.icon}
-            </span>
-            <h3 className="mt-5 text-xl font-semibold tracking-tight">{s.name}</h3>
-            <p className="mt-2.5 text-[0.95rem] text-muted text-pretty">{s.outcome}</p>
-            <div className="mt-5 flex items-center justify-between">
-              <span className="rounded-full border border-line bg-surface-2 px-2.5 py-1 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-pulse">
-                {s.metric}
-              </span>
-              <span aria-hidden className="font-mono text-sm text-pulse transition-transform duration-200 group-hover:translate-x-1">
-                →
-              </span>
-            </div>
-          </div>
-        </Link>
-      </motion.div>
+    <Reveal as="article">
+      <Link
+        href={s.href}
+        className="panel group relative flex h-full flex-col overflow-hidden p-7 transition-all duration-300 hover:-translate-y-1 hover:border-pulse/40 hover:shadow-[0_26px_60px_-28px_color-mix(in_srgb,var(--color-pulse)_55%,transparent)]"
+      >
+        <span className="grid size-12 place-items-center rounded-2xl bg-[linear-gradient(135deg,var(--brand-1),var(--brand-3))] text-white shadow-[0_10px_24px_-10px_color-mix(in_srgb,var(--brand-2)_70%,transparent)]">
+          {s.icon}
+        </span>
+        <h3 className="mt-5 text-xl font-semibold tracking-tight">{s.name}</h3>
+        <p className="mt-2.5 text-[0.95rem] text-muted text-pretty">{s.outcome}</p>
+        <div className="mt-5 flex items-center justify-between">
+          <span className="rounded-full border border-line bg-surface-2 px-2.5 py-1 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-pulse">
+            {s.metric}
+          </span>
+          <span aria-hidden className="font-mono text-sm text-pulse transition-transform duration-200 group-hover:translate-x-1">
+            →
+          </span>
+        </div>
+      </Link>
     </Reveal>
   );
 }
@@ -140,8 +103,8 @@ export function SolutionsGrid() {
         </Reveal>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SOLUTIONS.map((s, i) => (
-            <TiltCard key={s.name} s={s} i={i} />
+          {SOLUTIONS.map((s) => (
+            <Card key={s.name} s={s} />
           ))}
         </div>
       </div>

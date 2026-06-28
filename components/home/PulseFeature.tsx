@@ -1,6 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
@@ -18,7 +15,6 @@ const GAUGE = [
 ];
 
 export function PulseFeature() {
-  const reduce = useReducedMotion();
   return (
     <section className="scroll-mt-24 py-20 md:py-28">
       <div className="container-wide grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -47,7 +43,7 @@ export function PulseFeature() {
             ))}
           </ul>
           <div className="mt-8">
-            <Button href="/pulse" size="lg" magnetic>
+            <Button href="/pulse" size="lg">
               Open Pulse
               <span aria-hidden>→</span>
             </Button>
@@ -66,18 +62,15 @@ export function PulseFeature() {
             </div>
 
             <div className="relative mt-7 space-y-5">
-              {GAUGE.map((g, i) => (
+              {GAUGE.map((g) => (
                 <div key={g.label}>
                   <div className="flex items-center justify-between text-[0.78rem]">
                     <span className="text-text">{g.label}</span>
                     <span className="tabular font-medium text-pulse">{g.pct}%</span>
                   </div>
                   <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-surface-2">
-                    <motion.div
-                      initial={reduce ? false : { width: 0 }}
-                      whileInView={{ width: `${g.pct}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                    <div
+                      style={{ width: `${g.pct}%` }}
                       className="h-full rounded-full bg-[linear-gradient(90deg,var(--brand-1),var(--brand-3))]"
                     />
                   </div>

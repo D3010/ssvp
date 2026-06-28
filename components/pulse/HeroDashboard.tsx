@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import { Metric } from "@/components/ui/Metric";
 import { usePulseFeed } from "./usePulseFeed";
 import { formatMetric } from "@/lib/utils";
@@ -50,7 +49,7 @@ export function HeroDashboard() {
         </span>
       </div>
 
-      {/* sparkline */}
+      {/* sparkline (fully drawn — no JS) */}
       <div className="relative mt-4 h-24 w-full">
         <svg
           viewBox="0 0 400 120"
@@ -66,7 +65,7 @@ export function HeroDashboard() {
             </linearGradient>
           </defs>
           <path d={AREA} fill="url(#hero-area)" />
-          <motion.path
+          <path
             d={LINE}
             fill="none"
             stroke="currentColor"
@@ -74,17 +73,11 @@ export function HeroDashboard() {
             strokeLinecap="round"
             strokeLinejoin="round"
             vectorEffect="non-scaling-stroke"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
           />
         </svg>
         {/* riding dot at the end of the line */}
         <span className="absolute right-0 top-[10%] -translate-y-1/2">
-          <span className="relative grid place-items-center">
-            <span className="absolute size-3 rounded-full bg-pulse/40 animate-ping-slow" />
-            <span className="size-2 rounded-full bg-pulse shadow-[0_0_12px_2px_color-mix(in_srgb,var(--color-pulse)_60%,transparent)]" />
-          </span>
+          <span className="size-2 rounded-full bg-pulse shadow-[0_0_12px_2px_color-mix(in_srgb,var(--color-pulse)_60%,transparent)]" />
         </span>
       </div>
 

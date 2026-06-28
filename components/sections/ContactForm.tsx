@@ -17,7 +17,7 @@ function fieldError(state: ContactState, name: string) {
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" size="lg" disabled={pending} magnetic>
+    <Button type="submit" size="lg" disabled={pending}>
       {pending ? "Sending…" : "Book a build call"}
       {!pending && <span aria-hidden="true">→</span>}
     </Button>

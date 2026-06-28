@@ -312,6 +312,22 @@
   animation: ssvp-marquee 34s linear infinite;
 }
 
+/* brief fade-in for content that swaps in on the client (testimonials, menus).
+   Cheap, one-shot, and disabled under prefers-reduced-motion (see media query). */
+@keyframes ssvp-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: ssvp-fade-in 0.4s var(--ease-out-quint) both;
+}
+
 /* animated gradient pan for buttons / pills */
 @keyframes ssvp-gradient-pan {
   0%,

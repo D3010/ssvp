@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { Molecule, PillBottle, Capsule } from "./PharmacyArt";
 
 const STATS = [
   { value: "24/7", label: "systems running" },
@@ -19,7 +20,11 @@ export function Enterprise() {
           <div className="relative overflow-hidden rounded-[28px] bg-[linear-gradient(120deg,#1b1640,#4f46e5_55%,#7c3aed)] p-10 md:p-16">
             {/* texture */}
             <div aria-hidden className="absolute inset-0 bg-dots opacity-20" />
-            <div aria-hidden className="absolute -right-16 -top-20 size-80 rounded-full bg-white/10 blur-3xl animate-aurora" />
+            <div aria-hidden className="absolute -right-16 -top-20 size-80 rounded-full bg-white/10 blur-3xl" />
+            {/* faint depth art + glossy pharmacy accents (decorative) */}
+            <Molecule className="pointer-events-none absolute -left-10 -bottom-12 z-0 w-48 opacity-20" />
+            <Capsule className="pointer-events-none absolute right-10 -top-6 z-0 hidden w-32 -rotate-12 opacity-90 lg:block" />
+            <PillBottle className="pointer-events-none absolute -right-3 bottom-3 z-0 hidden w-20 rotate-6 opacity-95 md:block" />
             <div className="relative grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
               <div>
                 <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-white/70">
