@@ -41,19 +41,19 @@ export function HeroMock() {
         </div>
       </div>
 
-      {/* bar chart */}
+      {/* bar chart — grows up on load */}
       <div className="mt-7 flex h-24 items-end gap-2">
         {BARS.map((h, i) => (
           <span
             key={i}
-            style={{ height: `${h}%` }}
-            className="flex-1 rounded-t-lg bg-[linear-gradient(180deg,var(--brand-3),var(--brand-1))] opacity-90"
+            style={{ height: `${h}%`, animationDelay: `${i * 0.06}s` }}
+            className="animate-grow flex-1 rounded-t-lg bg-[linear-gradient(180deg,var(--brand-3),var(--brand-1))] opacity-90"
           />
         ))}
       </div>
 
       <div className="mt-5">
-        <PulseLine variant="divider" />
+        <PulseLine variant="divider" animate />
       </div>
 
       {/* ledger */}

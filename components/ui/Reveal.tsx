@@ -1,21 +1,57 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 
 /**
- * Layout wrapper. This used to be a JS scroll-reveal (opacity/translate driven
- * by the motion library), which meant content shipped invisible and only
- * appeared once JS had downloaded and run. It now renders a plain,
- * server-rendered element so content is visible instantly with zero JavaScript.
- * `delay` is accepted for call-site compatibility and intentionally ignored.
+ * Scroll-reveal wrapper — the SAFE kind.
+ *
+ * Content is fully rendered in the server HTML (no `opacity:0` ever ships). On
+ * mount, JS adds the `reveal` (hidden) class and animates it back in when it
+ * scrolls into view. So: with JS the section fades/slides in; with JS slow or
+ * disabled the content is simply visible the whole time. This can never recreate
+ * the "blank page until JS loads" bug, because the hidden state is applied by
+ * the client, never by the server.
  */
 export function Reveal({
   children,
-  as: Tag = "div",
+  as = "div",
   className,
+  delay = 0,
 }: {
   children: ReactNode;
   delay?: number;
-  as?: "div" | "section" | "li" | "article";
+  as?: ElementType;
   className?: string;
 }) {
-  return <Tag className={className}>{children}</Tag>;
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    el.classList.add("reveal");
+    if (delay) el.style.transitionDelay = `${delay}s`;
+
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-in");
+            obs.unobserve(entry.target);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [delay]);
+
+  const Tag = as;
+  return (
+    <Tag ref={ref} className={className}>
+      {children}
+    </Tag>
+  );
 }

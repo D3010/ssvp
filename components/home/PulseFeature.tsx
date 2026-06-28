@@ -62,7 +62,7 @@ export function PulseFeature() {
             </div>
 
             <div className="relative mt-7 space-y-5">
-              {GAUGE.map((g) => (
+              {GAUGE.map((g, i) => (
                 <div key={g.label}>
                   <div className="flex items-center justify-between text-[0.78rem]">
                     <span className="text-text">{g.label}</span>
@@ -70,8 +70,8 @@ export function PulseFeature() {
                   </div>
                   <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-surface-2">
                     <div
-                      style={{ width: `${g.pct}%` }}
-                      className="h-full rounded-full bg-[linear-gradient(90deg,var(--brand-1),var(--brand-3))]"
+                      style={{ width: `${g.pct}%`, animationDelay: `${i * 0.12}s` }}
+                      className="animate-grow-x h-full rounded-full bg-[linear-gradient(90deg,var(--brand-1),var(--brand-3))]"
                     />
                   </div>
                 </div>

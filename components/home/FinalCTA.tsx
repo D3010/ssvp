@@ -9,7 +9,7 @@ export function FinalCTA() {
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-dots radial-fade opacity-40" />
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--brand-2)_22%,transparent),transparent_62%)] blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--brand-2)_22%,transparent),transparent_62%)] blur-3xl animate-aurora"
       />
 
       <div className="container-page relative text-center">

@@ -328,6 +328,76 @@
   animation: ssvp-fade-in 0.4s var(--ease-out-quint) both;
 }
 
+/* ── scroll reveal ────────────────────────────────────────────────────
+   The hidden state is added by JS after mount (see components/ui/Reveal),
+   so the server HTML is always visible — this can't recreate the blank-page
+   bug. With JS, sections fade + rise as they enter the viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-out-quint), transform 0.6s var(--ease-out-quint);
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* hero entrance — pure CSS, runs on load (no JS needed), staggered via
+   inline animation-delay. Resolves to visible; reduced-motion collapses it. */
+@keyframes ssvp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-rise {
+  animation: ssvp-rise 0.7s var(--ease-out-quint) both;
+}
+
+/* bars / gauges growing up from their baseline */
+@keyframes ssvp-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.animate-grow {
+  transform-origin: bottom;
+  animation: ssvp-grow 0.8s var(--ease-out-quint) both;
+}
+
+@keyframes ssvp-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.animate-grow-x {
+  transform-origin: left;
+  animation: ssvp-grow-x 0.9s var(--ease-out-quint) both;
+}
+
+/* light sweep across the video placeholder ("rendering" shimmer) */
+@keyframes ssvp-scan {
+  0% {
+    transform: translateX(-130%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(430%) skewX(-12deg);
+  }
+}
+.animate-scan {
+  animation: ssvp-scan 3s ease-in-out infinite;
+}
+
 /* animated gradient pan for buttons / pills */
 @keyframes ssvp-gradient-pan {
   0%,

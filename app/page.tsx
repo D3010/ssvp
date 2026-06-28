@@ -3,6 +3,7 @@ import { CredibilityStrip } from "@/components/home/CredibilityStrip";
 import { ProblemStatement } from "@/components/home/ProblemStatement";
 import { SolutionsGrid } from "@/components/home/SolutionsGrid";
 import { PulseFeature } from "@/components/home/PulseFeature";
+import { VideoShowcase } from "@/components/home/VideoShowcase";
 import { Integrations } from "@/components/home/Integrations";
 import { BuiltForReality } from "@/components/home/BuiltForReality";
 import { Differentiators } from "@/components/home/Differentiators";
@@ -22,6 +23,7 @@ export default function Home() {
       <ProblemStatement />
       <SolutionsGrid />
       <PulseFeature />
+      <VideoShowcase />
       <Integrations />
       <div className="cv-auto">
         <BuiltForReality />

@@ -144,7 +144,7 @@ export function Molecule({ className }: { className?: string }) {
         </radialGradient>
       </defs>
       <circle cx={cx} cy={cy} r="56" fill="url(#molGlow)" />
-      <g style={{ transformBox: "fill-box", transformOrigin: "center" }}>
+      <g className="animate-spin-slow" style={{ transformBox: "fill-box", transformOrigin: "center" }}>
         {/* bonds to center */}
         {nodes.map((n, i) => (
           <line key={`c${i}`} x1={cx} y1={cy} x2={n.x} y2={n.y} stroke="url(#molBond)" strokeWidth="2.4" strokeOpacity="0.55" />
