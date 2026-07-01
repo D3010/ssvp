@@ -474,6 +474,69 @@
   animation: ssvp-caret 1s step-end infinite;
 }
 
+/* ── The Intake hero window ───────────────────────────────────────── */
+.intake-window {
+  animation: intake-window-in 1s var(--ease-out-quint) 0.4s both;
+}
+@keyframes intake-window-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.35;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+.intake-window .intake-row {
+  transition: border-color 0.3s var(--ease-out-quint), box-shadow 0.3s var(--ease-out-quint);
+}
+
+/* engine live: static dots hand off to the canvas; the gold check waits */
+.intake-live [data-dot] {
+  opacity: 0;
+}
+.intake-live .intake-check {
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out-quint);
+}
+.intake-live.intake-verified .intake-check {
+  opacity: 1;
+  animation: intake-check-pulse 0.9s var(--ease-out-quint);
+}
+.intake-check-ring {
+  opacity: 0;
+}
+.intake-verified .intake-check-ring {
+  animation: intake-ring 0.9s var(--ease-out-quint);
+}
+@keyframes intake-check-pulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+@keyframes intake-ring {
+  0% { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.2); }
+}
+
+/* read-back sweep + border brighten */
+.intake-row.is-read {
+  border-color: rgb(90 200 250 / 0.55);
+  box-shadow: inset 0 0 0 1px rgb(90 200 250 / 0.18);
+}
+.intake-scan {
+  opacity: 0;
+}
+.intake-row.is-read .intake-scan {
+  animation: intake-scan 0.4s linear;
+}
+@keyframes intake-scan {
+  0% { opacity: 0.7; left: 6%; }
+  100% { opacity: 0; left: 94%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

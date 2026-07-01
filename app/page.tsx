@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import GlassSceneMount from "@/components/scenes/GlassSceneMount";
-import { GlassPoster } from "@/components/scenes/GlassPoster";
+import { IntakeWindow } from "@/components/hero/IntakeWindow";
+import { HeroIntakeScene } from "@/components/hero/HeroIntakeScene";
 import { OverlaySimulator } from "@/components/home/OverlaySimulator";
 import { PulseLedger } from "@/components/pulse/PulseLedger";
 import { ModuleDeck } from "@/components/product/ModuleDeck";
@@ -33,13 +33,19 @@ export default function Home() {
       <JsonLd data={productJsonLd()} />
       <JsonLd data={faqJsonLd(FAQS)} />
 
-      {/* CH1 — THE GLASS */}
+      {/* CH1 — THE INTAKE */}
       <section className="relative min-h-[100svh] overflow-hidden border-b border-hairline">
         <div className="absolute inset-0 bg-dots opacity-70" aria-hidden="true" />
-        <div className="absolute inset-0">
-          <GlassSceneMount poster={<GlassPoster />} />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_65%_55%_at_35%_45%,transparent,rgb(10_18_32/0.55)_78%,rgb(10_18_32/0.92))]" aria-hidden="true" />
+        {/* the PrimeRx window the intake types into (DOM = server-rendered, JS-off safe) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 opacity-30 lg:justify-end lg:px-[7%] lg:opacity-100"
+        >
+          <IntakeWindow />
         </div>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_40%,transparent,rgb(10_18_32/0.5)_75%,rgb(10_18_32/0.85))]" aria-hidden="true" />
+        {/* canvas engine renders the dots on top of the window, aligned to its rows */}
+        <HeroIntakeScene />
         <div className="container-page relative z-10 flex min-h-[100svh] flex-col justify-center py-28">
           <Eyebrow accent="pulse" className="animate-rise">SSVP AI · AN AI TECHNICIAN FOR PRIMERX</Eyebrow>
           <h1 className="mt-6 max-w-4xl text-[length:var(--text-display)] font-medium leading-[0.98] tracking-[-0.03em] text-balance">
