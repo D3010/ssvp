@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ElementType, type ReactNode } from "react";
+import { createElement, useEffect, useRef, type ElementType, type ReactNode } from "react";
 
 /**
  * Scroll-reveal wrapper — the SAFE kind.
@@ -48,10 +48,5 @@ export function Reveal({
     return () => io.disconnect();
   }, [delay]);
 
-  const Tag = as;
-  return (
-    <Tag ref={ref} className={className}>
-      {children}
-    </Tag>
-  );
+  return createElement(as, { ref, className }, children);
 }

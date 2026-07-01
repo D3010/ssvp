@@ -7,10 +7,10 @@ import { SITE } from "@/lib/utils";
  * Reusable closing CTA band for inner pages. Defaults to the Pulse tagline.
  */
 export function CTABand({
-  title = SITE.tagline,
+  title = "Invisible in the workflow. Visible in the log.",
   sub,
   cta = "Book a build call",
-  href = "/contact",
+  href = "/book",
 }: {
   title?: string;
   sub?: string;

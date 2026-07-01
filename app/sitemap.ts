@@ -1,43 +1,40 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/utils";
-import { SERVICES } from "@/content/services";
-import { CASE_STUDIES } from "@/content/caseStudies";
+import { MODULES } from "@/content/modules";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticRoutes = [
-    "",
-    "/pulse",
-    "/services",
-    "/industries/pharmacy",
-    "/work",
-    "/about",
-    "/contact",
-    "/privacy",
-    "/terms",
+
+  const staticRoutes: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
+    { path: "", priority: 1, freq: "weekly" },
+    { path: "/product", priority: 0.9, freq: "monthly" },
+    { path: "/platform", priority: 0.8, freq: "monthly" },
+    { path: "/why-ssvp", priority: 0.8, freq: "monthly" },
+    { path: "/roadmap", priority: 0.7, freq: "monthly" },
+    { path: "/security", priority: 0.8, freq: "monthly" },
+    { path: "/roi", priority: 0.8, freq: "monthly" },
+    { path: "/pilot", priority: 0.9, freq: "monthly" },
+    { path: "/book", priority: 0.8, freq: "monthly" },
+    { path: "/about", priority: 0.6, freq: "monthly" },
+    { path: "/services", priority: 0.4, freq: "monthly" },
+    { path: "/investors", priority: 0.4, freq: "monthly" },
+    { path: "/privacy", priority: 0.3, freq: "yearly" },
+    { path: "/terms", priority: 0.3, freq: "yearly" },
   ];
 
-  const entries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
-    url: `${SITE.url}${path}`,
+  const entries: MetadataRoute.Sitemap = staticRoutes.map((r) => ({
+    url: `${SITE.url}${r.path}`,
     lastModified: now,
-    changeFrequency: path === "" || path === "/pulse" ? "weekly" : "monthly",
-    priority: path === "" ? 1 : path === "/pulse" ? 0.9 : 0.7,
+    changeFrequency: r.freq,
+    priority: r.priority,
   }));
 
-  for (const s of SERVICES) {
+  for (const m of MODULES) {
     entries.push({
-      url: `${SITE.url}/services/${s.slug}`,
+      url: `${SITE.url}/product/${m.slug}`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.8,
-    });
-  }
-  for (const c of CASE_STUDIES) {
-    entries.push({
-      url: `${SITE.url}/work/${c.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
+      priority: 0.7,
     });
   }
 

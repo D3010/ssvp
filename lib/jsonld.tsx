@@ -1,5 +1,5 @@
 import { SITE } from "./utils";
-import type { FaqItem, Service } from "@/content/services";
+import type { FaqItem } from "@/content/faq";
 
 /** Organization schema — emitted once in the root layout. */
 export function organizationJsonLd() {
@@ -14,31 +14,30 @@ export function organizationJsonLd() {
     slogan: SITE.tagline,
     foundingLocation: { "@type": "Place", name: "United States" },
     knowsAbout: [
-      "AI voice agents",
-      "Pharmacy automation",
-      "Patient engagement",
-      "Cold email deliverability",
-      "AI cold calling",
-      "Workflow automation",
+      "PrimeRx automation",
+      "PBM audit defense",
+      "Pharmacy inventory intelligence",
+      "Prescription auto-typing",
+      "Insurance card capture",
+      "Independent pharmacy operations",
     ],
   };
 }
 
-/** Service schema for a service page. */
-export function serviceJsonLd(service: Service) {
+/** Product schema — the Invisible Technician suite. */
+export function productJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: service.name,
-    serviceType: service.name,
-    description: service.heroSub,
-    url: `${SITE.url}/services/${service.slug}`,
-    provider: { "@type": "Organization", name: SITE.name, url: SITE.url },
-    areaServed: "US",
+    "@type": "Product",
+    name: "SSVP AI — The Invisible Technician",
+    description: SITE.description,
+    brand: { "@type": "Brand", name: SITE.name },
+    url: `${SITE.url}/product`,
+    category: "Pharmacy automation software",
   };
 }
 
-/** FAQPage schema — used by service pages and any FAQ block. */
+/** FAQPage schema — used by any FAQ block. */
 export function faqJsonLd(faqs: FaqItem[]) {
   return {
     "@context": "https://schema.org",

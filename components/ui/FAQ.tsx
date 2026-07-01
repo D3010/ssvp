@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { FaqItem } from "@/content/services";
+import type { FaqItem } from "@/content/faq";
 import { cn } from "@/lib/utils";
 
 /**

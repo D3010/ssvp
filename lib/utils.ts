@@ -30,11 +30,11 @@ export function formatMetric(value: number, format: MetricFormat): string {
 
 /** Site-wide constants wired into every CTA, the form, and the footer. */
 export const SITE = {
-  name: "SSVP",
+  name: "SSVP AI",
   legalName: "SSVP HOLDING LLC",
   email: "deep@deepshah.tech",
-  url: "https://ssvp.tech",
-  tagline: "We don't sell automation. We sell receipts.",
+  url: "https://ssvp-ai.com",
+  tagline: "Invisible in the workflow. Visible in the log.",
   description:
-    "SSVP designs, builds, and runs AI systems for healthcare and revenue teams — and streams the results live. Voice agents, outreach engines, workflow automation.",
+    "SSVP AI is an AI technician that runs unseen on top of PrimeRx — reading every screen, typing every script, counting every bottle, and keeping the money the pharmacy is about to lose. Pharmacist-verified. Edge-only PHI. Controlled substances excluded.",
 } as const;

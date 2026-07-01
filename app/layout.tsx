@@ -1,64 +1,66 @@
 import type { Metadata } from "next";
-import { sora, inter } from "./fonts";
+import { display, mono, inter } from "./fonts";
 import "./globals.css";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { JsonLd, organizationJsonLd } from "@/lib/jsonld";
 import { SITE } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+const TITLE = "SSVP AI — The Invisible Technician for PrimeRx pharmacies";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "SSVP — Automation you can audit",
-    template: "%s · SSVP",
+    default: TITLE,
+    template: "%s · SSVP AI",
   },
   description: SITE.description,
-  applicationName: "SSVP",
-  authors: [{ name: "SSVP" }],
+  applicationName: "SSVP AI",
+  authors: [{ name: "SSVP HOLDING LLC" }],
   keywords: [
-    "pharmacy automation",
-    "AI voice agent for pharmacy",
-    "patient engagement platform",
-    "cold email deliverability agency",
-    "AI cold calling",
-    "AI automation firm",
+    "PrimeRx automation",
+    "pharmacy AI technician",
+    "PBM audit defense",
+    "pharmacy inventory intelligence",
+    "independent pharmacy software",
+    "pharmacy auto-typing",
   ],
   openGraph: {
     type: "website",
-    siteName: "SSVP",
-    title: "SSVP — Automation you can audit",
+    siteName: "SSVP AI",
+    title: TITLE,
     description: SITE.description,
     url: SITE.url,
   },
   twitter: {
     card: "summary_large_image",
-    title: "SSVP — Automation you can audit",
+    title: TITLE,
     description: SITE.description,
   },
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${sora.variable} ${inter.variable}`}
-    >
+    <html lang="en" className={`${display.variable} ${mono.variable} ${inter.variable}`}>
       <body className="min-h-dvh antialiased">
         <JsonLd data={organizationJsonLd()} />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-pulse focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-mint focus:px-4 focus:py-2 focus:text-sm focus:text-obsidian"
         >
           Skip to content
         </a>
-        <Nav />
-        <main id="main" className="pt-16">
-          {children}
-        </main>
-        <Footer />
+        <SmoothScroll>
+          <Nav />
+          <main id="main">{children}</main>
+          <Footer />
+        </SmoothScroll>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

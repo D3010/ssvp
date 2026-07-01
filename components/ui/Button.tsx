@@ -16,13 +16,14 @@ const sizes: Record<Size, string> = {
 };
 
 const variants: Record<Variant, string> = {
-  // brand gradient = the primary action. Static blue→violet sweep, white text.
-  // A subtle CSS lift on hover replaces the old JS "magnetic" effect.
+  // The machine's primary action: solid mint, obsidian text. Never gold —
+  // gold is reserved for human-verification components (VerifyButton family).
   primary:
-    "animate-gradient-pan bg-[linear-gradient(110deg,var(--brand-1),var(--brand-2)_45%,var(--brand-3))] text-white font-semibold shadow-[0_10px_28px_-8px_color-mix(in_srgb,var(--brand-2)_60%,transparent)] hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-8px_color-mix(in_srgb,var(--brand-2)_75%,transparent)]",
+    "bg-mint text-obsidian font-semibold shadow-[0_10px_28px_-10px_rgb(127_224_176/0.5)] hover:-translate-y-0.5 hover:bg-[#93e8c0] hover:shadow-[0_16px_36px_-10px_rgb(127_224_176/0.65)]",
+  // Bordered glass on dark.
   secondary:
-    "border border-line bg-white text-text hover:border-pulse/40 hover:bg-surface-2 shadow-[0_1px_2px_0_rgba(20,21,43,0.05)]",
-  ghost: "text-pulse hover:text-text",
+    "border border-hairline bg-[color-mix(in_srgb,var(--color-emerald-deep)_50%,transparent)] text-text hover:border-mint/40 hover:bg-emerald",
+  ghost: "font-mono text-xs uppercase tracking-[0.12em] text-mint hover:text-text",
 };
 
 export function Button({

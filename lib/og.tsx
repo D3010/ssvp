@@ -6,12 +6,12 @@ export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
 const COLORS = {
-  base: "#0B1020",
-  surface: "#141936",
-  line: "#2A2F52",
-  pulse: "#818CF8",
-  text: "#F5F6FF",
-  muted: "#9AA0B4",
+  base: "#071410",
+  surface: "#0B2C1F",
+  line: "#1C3A2D",
+  pulse: "#7FE0B0",
+  text: "#E6F0EA",
+  muted: "#8BA99A",
 };
 
 async function fonts() {
@@ -30,7 +30,7 @@ async function fonts() {
  * route's opengraph-image so shares look like the dashboards SSVP builds.
  */
 export async function renderOgImage({
-  eyebrow = "AI SYSTEMS THAT DO REAL WORK",
+  eyebrow = "AN AI TECHNICIAN FOR PRIMERX",
   title,
   metric,
 }: {
@@ -107,10 +107,10 @@ export async function renderOgImage({
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ width: 12, height: 12, borderRadius: 12, background: COLORS.pulse }} />
-            <div style={{ color: COLORS.text, fontSize: 30, fontWeight: 700 }}>SSVP</div>
+            <div style={{ color: COLORS.text, fontSize: 30, fontWeight: 700 }}>SSVP AI</div>
           </div>
           <div style={{ color: COLORS.muted, fontSize: 24 }}>
-            We don&apos;t sell automation. We sell receipts.
+            Invisible in the workflow. Visible in the log.
           </div>
         </div>
       </div>

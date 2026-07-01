@@ -1,81 +1,79 @@
 /**
- * SSVP Pulse — the data layer.
+ * SSVP Pulse — the public face of the append-only action_log and the
+ * dollars-protected ledger. "Invisible in the workflow. Visible in the log."
  *
- * The public ticker runs on seeded, deterministic data today and a documented
- * API tomorrow. Components consume `usePulseFeed()` / the `PulseMetric` contract
- * and never change when real telemetry replaces the seed. The same contract is
- * served by GET /api/pulse.
+ * The ledger runs on seeded, deterministic DEMO data for launch (always shown
+ * behind a DEMO DATA chip — Part K.4) and a documented API tomorrow. Components
+ * consume `usePulseFeed()` / the `PulseMetric` contract and never change when
+ * real telemetry replaces the seed. The same contract is served by GET /api/pulse.
  *
  * Determinism matters: the seeded generator produces identical output on the
  * server and the client, so the initial render never causes a hydration
  * mismatch. "Live" growth happens only after mount, on a client interval.
  */
 
-export type PulseSystem = "voice-agent" | "email" | "workflow" | "outreach";
-export type PulseKind = "call" | "reply" | "delivery" | "refill" | "hours-saved";
+export type PulseSystem = "auto-typing" | "inventory" | "audit" | "insurance" | "ordering";
+export type PulseKind = "typed" | "drift" | "exposure" | "captured" | "order" | "reconciled";
 
 export interface PulseMetric {
   id: string;
-  /** ISO-ish timestamp; for the seed this is a clock time today */
-  ts: string;
+  ts: string; // clock time (fixed seed clock so SSR === CSR)
   system: PulseSystem;
   event: string;
-  valueUsd?: number;
+  valueUsd?: number; // dollars logged / protected (mint)
+  atRiskUsd?: number; // dollars at risk (risk tone)
   durationMin?: number;
+  verified?: boolean; // pharmacist-signed → renders a gold check
   kind: PulseKind;
 }
 
 export interface PulseAggregate {
-  callsAnswered: number;
+  scriptsTyped: number;
   hoursSaved: number;
-  messagesDelivered: number;
-  revenueRecovered: number;
+  dollarsProtected: number;
+  driftFlags: number;
 }
 
 export type PulseRange = "week" | "all";
 
-/** Anonymized aggregate across all SSVP systems (seeded baseline for launch). */
+/** DEMO aggregate — always rendered behind a DEMO DATA chip; never real customers. */
 export const BASE_AGGREGATE: Record<PulseRange, PulseAggregate> = {
-  week: {
-    callsAnswered: 1842,
-    hoursSaved: 461,
-    messagesDelivered: 12880,
-    revenueRecovered: 18650,
-  },
-  all: {
-    callsAnswered: 14208,
-    hoursSaved: 3517,
-    messagesDelivered: 92640,
-    revenueRecovered: 128400,
-  },
+  week: { scriptsTyped: 1284, hoursSaved: 42, dollarsProtected: 8420, driftFlags: 6 },
+  all: { scriptsTyped: 18640, hoursSaved: 620, dollarsProtected: 124300, driftFlags: 74 },
 };
 
-/** Realistic ledger event templates, keyed by system. */
-const EVENT_BANK: Record<PulseSystem, { event: string; kind: PulseKind; usd?: [number, number]; dur?: [number, number] }[]> = {
-  "voice-agent": [
-    { event: "Refill confirmed", kind: "refill", usd: [32, 86], dur: [2, 4] },
-    { event: "Call answered", kind: "call", dur: [1, 5] },
-    { event: "Appointment scheduled", kind: "call", dur: [2, 4] },
-    { event: "Transferred to pharmacist", kind: "call", dur: [1, 3] },
+const EVENT_BANK: Record<
+  PulseSystem,
+  { event: string; kind: PulseKind; usd?: [number, number]; risk?: [number, number]; dur?: [number, number]; verified?: boolean }[]
+> = {
+  "auto-typing": [
+    { event: "Script typed & verified", kind: "typed", dur: [2, 3], verified: true },
+    { event: "Sig parsed → structured", kind: "typed", dur: [1, 2] },
+    { event: "NDC crosswalk resolved", kind: "typed", dur: [1, 2] },
   ],
-  email: [
-    { event: "Reply received", kind: "reply" },
-    { event: "Message delivered", kind: "delivery" },
-    { event: "Sequence completed", kind: "delivery" },
+  inventory: [
+    { event: "Bottle scanned in", kind: "reconciled", dur: [1, 1] },
+    { event: "Purchased-vs-dispensed drift flagged", kind: "drift", risk: [120, 620] },
+    { event: "Perpetual count reconciled", kind: "reconciled", dur: [1, 2] },
   ],
-  workflow: [
-    { event: "Prior-auth resolved", kind: "hours-saved", dur: [12, 40] },
-    { event: "Fax parsed & routed", kind: "hours-saved", dur: [3, 9] },
-    { event: "Inventory alert cleared", kind: "hours-saved", dur: [4, 11] },
+  audit: [
+    { event: "Exposure ranked", kind: "exposure", risk: [220, 1400] },
+    { event: "Defense document assembled", kind: "exposure", dur: [3, 8], verified: true },
+    { event: "Invoice reconciled by NDC", kind: "exposure", usd: [180, 900] },
   ],
-  outreach: [
-    { event: "Objection tagged", kind: "reply", dur: [1, 3] },
-    { event: "Meeting booked", kind: "reply", usd: [120, 480], dur: [3, 6] },
-    { event: "Connect → live rep", kind: "call", dur: [1, 4] },
+  insurance: [
+    { event: "Card + ID captured", kind: "captured", dur: [1, 2] },
+    { event: "BIN/PCN validated → PBM routed", kind: "captured", dur: [1, 1] },
+    { event: "Old-vs-new diff confirmed", kind: "captured", verified: true },
+  ],
+  ordering: [
+    { event: "PO drafted — owner approval pending", kind: "order", dur: [2, 4] },
+    { event: "Insulin flagged for reorder", kind: "order" },
+    { event: "PO transmitted · EDI 850", kind: "order", verified: true },
   ],
 };
 
-const SYSTEMS: PulseSystem[] = ["voice-agent", "email", "workflow", "outreach"];
+const SYSTEMS: PulseSystem[] = ["auto-typing", "inventory", "audit", "insurance", "ordering"];
 
 /** Mulberry32 — tiny deterministic PRNG. */
 function mulberry32(seed: number) {
@@ -92,15 +90,11 @@ function pad(n: number) {
   return n.toString().padStart(2, "0");
 }
 
-/**
- * Generate a deterministic ledger. The most recent row is "now" (relative to a
- * fixed clock so SSR === CSR); rows step back ~1–4 minutes each.
- */
+/** Generate a deterministic ledger against a fixed clock so SSR === CSR. */
 export function generateLedger(count: number, seed = 42): PulseMetric[] {
   const rand = mulberry32(seed);
   const rows: PulseMetric[] = [];
-  // fixed seed clock: 14:08 — deterministic, no Date.now() in render path
-  let minutes = 14 * 60 + 8;
+  let minutes = 21 * 60 + 14; // fixed seed clock: 21:14 (after close)
 
   for (let i = 0; i < count; i++) {
     const system = SYSTEMS[Math.floor(rand() * SYSTEMS.length)];
@@ -115,12 +109,10 @@ export function generateLedger(count: number, seed = 42): PulseMetric[] {
       system,
       event: tpl.event,
       kind: tpl.kind,
-      valueUsd: tpl.usd
-        ? Math.round(tpl.usd[0] + rand() * (tpl.usd[1] - tpl.usd[0]))
-        : undefined,
-      durationMin: tpl.dur
-        ? Math.round(tpl.dur[0] + rand() * (tpl.dur[1] - tpl.dur[0]))
-        : undefined,
+      verified: tpl.verified,
+      valueUsd: tpl.usd ? Math.round(tpl.usd[0] + rand() * (tpl.usd[1] - tpl.usd[0])) : undefined,
+      atRiskUsd: tpl.risk ? Math.round(tpl.risk[0] + rand() * (tpl.risk[1] - tpl.risk[0])) : undefined,
+      durationMin: tpl.dur ? Math.round(tpl.dur[0] + rand() * (tpl.dur[1] - tpl.dur[0])) : undefined,
     });
 
     minutes -= 1 + Math.floor(rand() * 4);
@@ -130,8 +122,9 @@ export function generateLedger(count: number, seed = 42): PulseMetric[] {
 }
 
 export const SYSTEM_LABEL: Record<PulseSystem, string> = {
-  "voice-agent": "voice-agent",
-  email: "email",
-  workflow: "workflow",
-  outreach: "outreach",
+  "auto-typing": "auto-typing",
+  inventory: "inventory",
+  audit: "audit-defense",
+  insurance: "insurance",
+  ordering: "ordering",
 };

@@ -1,51 +1,74 @@
 @import "tailwindcss";
 
-/* ------------------------------------------------------------------ *
- * SSVP design tokens — light, premium SaaS (TJM-inspired).
- * The accent (--color-pulse) is repurposed from green → brand indigo so
- * every legacy "proof" usage (CTA, LIVE dot, metrics, eyebrows) cascades
- * to the new blue-violet brand with no per-component churn.
- * ------------------------------------------------------------------ */
+/* ================================================================== *
+ * SSVP — PHARMACY NOIR design system.
+ *
+ * Deep emerald darkness (the after-hours pharmacy), monospace machine
+ * labels, one warm metallic accent for the human hand that signs.
+ *
+ * TOKEN LAW (enforced by convention + grep):
+ *   mint / mint-dim  → the MACHINE. data, links, live values, chart strokes.
+ *   gold / gold-bright → the HUMAN. verification only. Never decorative.
+ *     Reserved for components under components/verification/*.
+ *   risk → audit exposure / drift. Used sparingly, never for CTAs.
+ *
+ * Legacy semantic tokens (--color-pulse, --color-ice, brand-1..3) are
+ * re-pointed to noir/mint values so every inherited utility cascades
+ * without per-component churn; --color-pulse == the mint machine accent.
+ * ================================================================== */
 @theme {
-  /* surfaces */
-  --color-base: #ffffff;
-  --color-surface: #ffffff;
-  --color-surface-2: #f5f6fc;
-  --color-line: #e7e8f3;
+  /* ── surfaces (dark-first) ─────────────────────────────────────── */
+  --color-obsidian: #071410; /* page ground */
+  --color-emerald-deep: #0b2c1f; /* panels, cards */
+  --color-emerald: #10402c; /* elevated surfaces, hover */
 
-  /* dark text used on top of accent/gradient surfaces */
-  --color-ink: #0b1020;
+  --color-base: #071410; /* → obsidian */
+  --color-surface: #0b2c1f; /* → emerald-deep */
+  --color-surface-2: #10402c; /* → emerald */
+  --color-line: rgb(226 240 232 / 0.1); /* hairline on dark */
+  --color-hairline: rgb(226 240 232 / 0.1);
 
-  /* brand accent (was green "pulse") — now indigo, paired with violet */
-  --color-pulse: #6366f1;
-  --color-pulse-dim: #c7d2fe;
-  --color-ice: #8b5cf6;
+  /* ── machine accent (mint) ─────────────────────────────────────── */
+  --color-mint: #7fe0b0;
+  --color-mint-dim: #3e8f6b;
+  --color-pulse: #7fe0b0; /* legacy alias → mint */
+  --color-pulse-dim: #3e8f6b; /* legacy alias → mint-dim */
+  --color-ice: #3e8f6b; /* legacy alias → mint-dim */
 
-  /* brand gradient stops — the signature blue→violet→fuchsia sweep */
-  --brand-1: #4f46e5;
-  --brand-2: #7c3aed;
-  --brand-3: #a855f7;
+  /* ── human accent (GOLD — verification only) ───────────────────── */
+  --color-gold: #c9973f;
+  --color-gold-bright: #e5b34e;
 
-  /* type */
-  --color-text: #14152b;
-  --color-muted: #5b6173;
-  --color-danger: #e11d48;
+  /* ── paper (light contrast beats) ──────────────────────────────── */
+  --color-bone: #f2efe6;
+  --color-ink: #101613; /* text on bone/gold */
 
-  --font-display: var(--font-sora), "Inter", system-ui, sans-serif;
+  /* ── type ──────────────────────────────────────────────────────── */
+  --color-text: #e6f0ea; /* body on obsidian (AA) */
+  --color-muted: #8ba99a; /* secondary text on dark */
+  --color-danger: #d96a4a;
+  --color-risk: #d96a4a;
+
+  /* legacy gradient stops → emerald→mint sweep */
+  --brand-1: #10402c;
+  --brand-2: #3e8f6b;
+  --brand-3: #7fe0b0;
+
+  --font-display: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
-  /* system monospace — zero download; only used for tiny telemetry labels */
-  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", "Menlo", monospace;
 
-  /* fluid type scale — tightened so the hero fits the first screen */
-  --text-display: clamp(2.4rem, 4.6vw, 4.5rem);
-  --text-h2: clamp(1.9rem, 3.4vw, 3.1rem);
-  --text-h3: clamp(1.5rem, 2.5vw, 2.25rem);
+  /* fluid type scale — museum-huge display for pharmacy noir */
+  --text-display: clamp(2.75rem, 8vw, 8.5rem);
+  --text-h1: clamp(2.4rem, 6vw, 6rem);
+  --text-h2: clamp(1.9rem, 4vw, 4rem);
+  --text-h3: clamp(1.4rem, 2.6vw, 2.5rem);
 
-  --radius-card: 18px;
+  --radius-card: 12px;
   --radius-input: 10px;
 
-  /* shared easing for orchestrated motion */
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
@@ -54,20 +77,19 @@
   }
 
   html {
-    scroll-behavior: smooth;
-    background: var(--color-base);
-    color-scheme: light;
+    background: var(--color-obsidian);
+    color-scheme: dark;
   }
 
   body {
-    background: var(--color-base);
+    background: var(--color-obsidian);
     color: var(--color-text);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  /* numbers render in the display sans with tabular figures — clean + premium */
+  /* numbers: tabular, in the display grotesk */
   .tabular {
     font-family: var(--font-display);
     font-variant-numeric: tabular-nums;
@@ -80,21 +102,29 @@
   h3,
   .font-display {
     font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.022em;
-    line-height: 1.06;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
     color: var(--color-text);
   }
 
-  ::selection {
-    background: var(--color-pulse);
-    color: #ffffff;
+  /* the mono "machine speaking" register — eyebrows, labels, chips */
+  .mono-label {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8125rem;
+    color: var(--color-mint-dim);
   }
 
-  /* visible focus everywhere — accessibility floor */
+  ::selection {
+    background: var(--color-mint);
+    color: var(--color-obsidian);
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-pulse);
-    outline-offset: 3px;
+    outline: 2px solid var(--color-mint);
+    outline-offset: 2px;
     border-radius: 2px;
   }
 
@@ -107,118 +137,146 @@
 @layer utilities {
   .container-page {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: 1.5rem;
   }
 
   .container-wide {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1440px;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: 1.5rem;
   }
 
   .text-balance {
     text-wrap: balance;
   }
-
   .text-pretty {
     text-wrap: pretty;
   }
 
-  /* brand gradient text — the signature highlight */
+  /* mint machine-accent gradient for the rare highlighted word */
   .gradient-text {
-    background: linear-gradient(110deg, var(--brand-1), var(--brand-2) 45%, var(--brand-3));
+    background: linear-gradient(110deg, var(--color-mint-dim), var(--color-mint) 60%, #b9f4d6);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* warm headline with a faint vertical sheen for depth (now dark-on-light) */
+  /* gold gradient — VERIFICATION headlines only */
+  .gold-text {
+    background: linear-gradient(110deg, var(--color-gold), var(--color-gold-bright));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
   .headline-sheen {
-    background: linear-gradient(180deg, #1c1d36 0%, var(--color-text) 60%, #2b2c47 100%);
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-text) 55%, #a9c6b7 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* faint dotted/instrument grid for light panels */
+  /* fine dot-grid at 2–3% — the PDF back-cover texture, fixed */
+  .bg-dots {
+    background-image: radial-gradient(rgb(127 224 176 / 0.06) 1px, transparent 1.4px);
+    background-size: 24px 24px;
+  }
+
   .bg-grid {
     background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--color-line) 90%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--color-line) 90%, transparent) 1px, transparent 1px);
-    background-size: 52px 52px;
+      linear-gradient(to right, var(--color-hairline) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-hairline) 1px, transparent 1px);
+    background-size: 56px 56px;
   }
 
   .bg-grid-fine {
     background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--color-line) 80%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--color-line) 80%, transparent) 1px, transparent 1px);
-    background-size: 36px 36px;
+      linear-gradient(to right, var(--color-hairline) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-hairline) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 
-  .bg-dots {
-    background-image: radial-gradient(color-mix(in srgb, var(--color-pulse) 22%, transparent) 1px, transparent 1.4px);
-    background-size: 22px 22px;
-  }
-
-  /* soft brand mesh used behind hero / CTA */
+  /* ambient emerald depth behind hero / CTA (no lavender) */
   .bg-mesh {
     background-image:
-      radial-gradient(45% 55% at 18% 12%, color-mix(in srgb, var(--brand-1) 22%, transparent), transparent 70%),
-      radial-gradient(40% 50% at 85% 8%, color-mix(in srgb, var(--brand-3) 20%, transparent), transparent 70%),
-      radial-gradient(55% 60% at 70% 95%, color-mix(in srgb, var(--brand-2) 16%, transparent), transparent 70%);
+      radial-gradient(50% 60% at 15% 0%, rgb(16 64 44 / 0.55), transparent 70%),
+      radial-gradient(45% 55% at 90% 5%, rgb(62 143 107 / 0.18), transparent 70%),
+      radial-gradient(60% 65% at 70% 100%, rgb(11 44 31 / 0.7), transparent 70%);
   }
 
+  .glow-mint {
+    box-shadow:
+      0 0 0 1px rgb(127 224 176 / 0.16),
+      0 18px 50px -16px rgb(127 224 176 / 0.28);
+  }
+  .glow-gold {
+    box-shadow:
+      0 0 0 1px rgb(201 151 63 / 0.35),
+      0 18px 50px -16px rgb(201 151 63 / 0.4);
+  }
+  /* legacy alias */
   .glow-pulse {
     box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--color-pulse) 22%, transparent),
-      0 18px 50px -16px color-mix(in srgb, var(--color-pulse) 45%, transparent);
+      0 0 0 1px rgb(127 224 176 / 0.16),
+      0 18px 50px -16px rgb(127 224 176 / 0.28);
   }
 
-  /* premium light card: white fill, hairline border, soft layered shadow */
+  /* dark emerald panel — depth from hairlines + luminance, not shadow */
   .panel {
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
-    box-shadow:
-      0 1px 2px 0 rgba(20, 21, 43, 0.04),
-      0 12px 32px -16px rgba(20, 21, 43, 0.12);
+    background: color-mix(in srgb, var(--color-emerald-deep) 92%, transparent);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-card);
   }
 
+  .panel-mint {
+    border-color: rgb(127 224 176 / 0.28);
+    box-shadow: 0 24px 60px -30px rgb(127 224 176 / 0.35);
+  }
   .panel-pulse {
-    border-color: color-mix(in srgb, var(--color-pulse) 30%, var(--color-line));
-    box-shadow:
-      0 1px 2px 0 rgba(20, 21, 43, 0.04),
-      0 24px 60px -28px color-mix(in srgb, var(--color-pulse) 55%, transparent);
+    border-color: rgb(127 224 176 / 0.28);
+    box-shadow: 0 24px 60px -30px rgb(127 224 176 / 0.35);
+  }
+  .panel-gold {
+    border-color: rgb(201 151 63 / 0.4);
+    box-shadow: 0 24px 60px -30px rgb(201 151 63 / 0.4);
   }
 
-  /* glassmorphism for the nav — lighter blur keeps scroll repaints cheap */
+  /* GLASS = the material of the Overlay: emerald tint, hairline, top light */
   .glass {
-    background: color-mix(in srgb, #ffffff 85%, transparent);
-    backdrop-filter: blur(10px) saturate(130%);
-    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background: color-mix(in srgb, var(--color-emerald-deep) 62%, transparent);
+    backdrop-filter: blur(14px) saturate(130%);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    border-bottom: 1px solid var(--color-hairline);
   }
 
-  /* frosted floating card used in the hero stack — near-opaque, minimal blur */
   .glass-card {
-    background: color-mix(in srgb, #ffffff 92%, transparent);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: color-mix(in srgb, var(--color-emerald-deep) 55%, transparent);
+    border: 1px solid var(--color-hairline);
     box-shadow:
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-      0 28px 60px -24px rgba(79, 70, 229, 0.28),
-      0 8px 20px -10px rgba(20, 21, 43, 0.14);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+      inset 0 1px 0 0 rgb(226 240 232 / 0.08),
+      0 30px 70px -30px rgb(0 0 0 / 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-card);
+  }
+
+  /* paper interlude — inverts to bone for contrast beats */
+  .paper {
+    background: var(--color-bone);
+    color: var(--color-ink);
+  }
+  .paper * {
+    border-color: rgb(16 22 19 / 0.12);
   }
 
   .radial-fade {
-    -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, black, transparent 78%);
-    mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, black, transparent 78%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 35%, black, transparent 80%);
+    mask-image: radial-gradient(ellipse 80% 75% at 50% 35%, black, transparent 80%);
   }
 
-  /* tilt container: children opt into preserve-3d depth */
   .tilt-3d {
     transform-style: preserve-3d;
   }
@@ -226,46 +284,38 @@
     transform: translateZ(40px);
   }
 
-  /* perf: skip rendering far-offscreen sections until they're near the viewport */
+  /* perf: skip far-offscreen sections until near the viewport */
   .cv-auto {
     content-visibility: auto;
     contain-intrinsic-size: auto 760px;
-  }
-
-  /* soft drop shadow for floating pharmacy art (cheaper than a blur layer) */
-  .art-shadow {
-    filter: drop-shadow(0 24px 30px rgba(79, 70, 229, 0.22));
   }
 }
 
 /* ── motion keyframes ─────────────────────────────────────────────── */
 
-/* slow-drifting ambient brand blobs (GPU friendly) */
-/* translate + opacity only — no scale, so the blurred layer never re-rasterizes */
 @keyframes ssvp-aurora {
   0%,
   100% {
     transform: translate3d(0, 0, 0);
-    opacity: 0.65;
+    opacity: 0.6;
   }
   50% {
     transform: translate3d(4%, -3%, 0);
-    opacity: 0.9;
+    opacity: 0.85;
   }
 }
 .animate-aurora {
-  animation: ssvp-aurora 18s ease-in-out infinite;
+  animation: ssvp-aurora 20s ease-in-out infinite;
   will-change: transform, opacity;
 }
 
-/* gentle vertical float for the hero 3D cards */
 @keyframes ssvp-float {
   0%,
   100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-14px);
+    transform: translateY(-12px);
   }
 }
 .animate-float {
@@ -275,31 +325,6 @@
   animation: ssvp-float 9s ease-in-out infinite;
 }
 
-/* slow rotation for the molecule / orbital pharmacy art */
-@keyframes ssvp-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.animate-spin-slow {
-  animation: ssvp-spin 44s linear infinite;
-}
-
-/* gentle 3D bob + sway for capsules and tablets */
-@keyframes ssvp-bob {
-  0%,
-  100% {
-    transform: translateY(0) rotate(var(--bob-rot, 0deg));
-  }
-  50% {
-    transform: translateY(-16px) rotate(calc(var(--bob-rot, 0deg) + 4deg));
-  }
-}
-.animate-bob {
-  animation: ssvp-bob 7s ease-in-out infinite;
-}
-
-/* logo / integration marquee */
 @keyframes ssvp-marquee {
   from {
     transform: translateX(0);
@@ -309,11 +334,9 @@
   }
 }
 .animate-marquee {
-  animation: ssvp-marquee 34s linear infinite;
+  animation: ssvp-marquee 36s linear infinite;
 }
 
-/* brief fade-in for content that swaps in on the client (testimonials, menus).
-   Cheap, one-shot, and disabled under prefers-reduced-motion (see media query). */
 @keyframes ssvp-fade-in {
   from {
     opacity: 0;
@@ -330,20 +353,17 @@
 
 /* ── scroll reveal ────────────────────────────────────────────────────
    The hidden state is added by JS after mount (see components/ui/Reveal),
-   so the server HTML is always visible — this can't recreate the blank-page
-   bug. With JS, sections fade + rise as they enter the viewport. */
+   so the server HTML is always visible — no blank-page-without-JS bug. */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s var(--ease-out-quint), transform 0.6s var(--ease-out-quint);
+  transform: translateY(16px);
+  transition: opacity 0.7s var(--ease-out-quint), transform 0.7s var(--ease-out-quint);
 }
 .reveal-in {
   opacity: 1;
   transform: none;
 }
 
-/* hero entrance — pure CSS, runs on load (no JS needed), staggered via
-   inline animation-delay. Resolves to visible; reduced-motion collapses it. */
 @keyframes ssvp-rise {
   from {
     opacity: 0;
@@ -355,10 +375,9 @@
   }
 }
 .animate-rise {
-  animation: ssvp-rise 0.7s var(--ease-out-quint) both;
+  animation: ssvp-rise 0.8s var(--ease-out-quint) both;
 }
 
-/* bars / gauges growing up from their baseline */
 @keyframes ssvp-grow {
   from {
     transform: scaleY(0);
@@ -385,7 +404,6 @@
   animation: ssvp-grow-x 0.9s var(--ease-out-quint) both;
 }
 
-/* light sweep across the video placeholder ("rendering" shimmer) */
 @keyframes ssvp-scan {
   0% {
     transform: translateX(-130%) skewX(-12deg);
@@ -398,51 +416,34 @@
   animation: ssvp-scan 3s ease-in-out infinite;
 }
 
-/* animated gradient pan for buttons / pills */
-@keyframes ssvp-gradient-pan {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-.animate-gradient-pan {
-  background-size: 200% 200%;
-  animation: ssvp-gradient-pan 6s ease infinite;
-}
-
-/* a dot that rides the end of the sparkline */
-@keyframes ssvp-ping {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  75%,
-  100% {
-    transform: scale(2.6);
-    opacity: 0;
-  }
-}
-.animate-ping-slow {
-  animation: ssvp-ping 2.4s var(--ease-out-quint) infinite;
-}
-
-/* breathing LIVE / brand dot */
+/* breathing LIVE dot (mint) */
 @keyframes ssvp-breathe {
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-pulse) 55%, transparent);
+    box-shadow: 0 0 0 0 rgb(127 224 176 / 0.5);
   }
   50% {
     opacity: 0.75;
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-pulse) 0%, transparent);
+    box-shadow: 0 0 0 6px rgb(127 224 176 / 0);
   }
 }
 .animate-breathe {
   animation: ssvp-breathe 2.4s var(--ease-out-quint) infinite;
+}
+
+/* gold verification pulse — for the pharmacist gate button */
+@keyframes ssvp-gold-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(201 151 63 / 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgb(201 151 63 / 0);
+  }
+}
+.animate-gold-pulse {
+  animation: ssvp-gold-pulse 2s var(--ease-out-quint) infinite;
 }
 
 /* ECG / signal line draw */
@@ -463,6 +464,24 @@
     transform: translateY(0);
   }
 }
+.ssvp-row-in {
+  animation: ssvp-row-in 0.5s var(--ease-out-quint) both;
+}
+
+/* typewriter caret for the OverlaySimulator */
+@keyframes ssvp-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.animate-caret {
+  animation: ssvp-caret 1s step-end infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -472,8 +491,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
-  }
-  html {
-    scroll-behavior: auto;
   }
 }

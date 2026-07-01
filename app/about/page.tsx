@@ -1,77 +1,151 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTABand } from "@/components/sections/CTABand";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionShell } from "@/components/ui/SectionShell";
 import { Reveal } from "@/components/ui/Reveal";
+import { Glyph } from "@/components/ui/Glyph";
+import { SignOffStamp } from "@/components/verification/SignOffStamp";
+import { PRINCIPLES } from "@/content/site.config";
+import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "About — The anti-agency",
+  title: "About — SSVP AI",
   description:
-    "SSVP is a founder-led, engineering-first AI automation firm. The person scoping your system writes the code. Trained in AI/ML at Stevens Institute of Technology.",
+    "SSVP AI was built by insiders — operators who worked the counter and engineers who ship. We chose reality over demos: a verified overlay on PrimeRx, not another dashboard.",
   alternates: { canonical: "/about" },
 };
 
-const PRINCIPLES = [
-  { title: "Receipts over rhetoric.", body: "If we claim it, Pulse can prove it. Every engagement reports its own numbers." },
-  { title: "Ship in weeks.", body: "Value in weeks, not quarters. We phase the big builds so you see results early." },
-  { title: "The builder takes the meeting.", body: "No account managers translating your problem. You talk to the person writing the code." },
-  { title: "Build on what you already trust.", body: "Integration first. We meet your stack where it is instead of forcing a rip-and-replace." },
-  { title: "If we can't measure it, we don't bill for it.", body: "Outcome-aligned pricing tied to metrics Pulse verifies." },
-];
+/** One glyph per governing word — the machine reads, the human signs, the edge holds. */
+const WORD_GLYPH = {
+  Invisible: "eye",
+  Verified: "check",
+  "Edge-bound": "shield",
+} as const;
 
 export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="THE ANTI-AGENCY"
-        title="We'd rather show you the code than the slide deck."
-        sub="An engineering-first AI automation firm, founder-led on purpose."
+        eyebrow="ABOUT"
+        title="We chose reality over the demo."
+        sub={
+          <>
+            SSVP wasn&rsquo;t dreamed up in a lab that read about pharmacy. It was
+            built by insiders — the people who worked the counter and the people
+            who ship production AI — around one conviction:{" "}
+            <span className="text-text">
+              a pharmacist&rsquo;s license shouldn&rsquo;t be spent on fax machines
+              and hold music.
+            </span>
+          </>
+        }
       />
 
-      <section className="py-20 md:py-24">
-        <div className="container-page max-w-3xl space-y-6 text-lg text-muted text-pretty">
+      {/* ── THE BUILDER STORY ─────────────────────────────────────────── */}
+      <SectionShell
+        eyebrow="THE BUILDER"
+        title="The person who scopes your system writes the code."
+        intro="SSVP is founder-led by Deep Shah. There is no account manager translating your problem into a slide, then a slide into a ticket, then a ticket into something that misses the point."
+      >
+        <div className="max-w-3xl space-y-6 text-lg text-muted text-pretty">
           <p>
-            SSVP is an engineering-first AI automation firm. We build production
-            systems — voice agents handling real pharmacy call volume, email
-            pipelines that recovered sender reputation from 78% to 90%, outreach
-            engines wired into ATS data — and we hold ourselves to the numbers
-            they produce.
+            Most pharmacy-AI companies chose the safe build: a dashboard that
+            watches your claims through glass and hands you a to-do list. It demos
+            beautifully. It changes nothing at 6pm when the queue is out the door
+            and a payer is on hold.
           </p>
           <p>
-            The firm is founder-led: trained in AI/ML at Stevens Institute of
-            Technology, shipping healthcare AI in production. We started SSVP
-            because the gap between what agencies promise and what they can prove
-            was a business waiting to happen.{" "}
+            We chose the hard one. SSVP is a{" "}
+            <span className="text-text">transparent overlay on PrimeRx</span> — it
+            reads every screen, types every script, counts every bottle, and stages
+            the work a technician would do. No new app to learn. No rip-and-replace.
+            No permission from the PMS vendor. And no write happens until a licensed
+            pharmacist signs it off.
+          </p>
+          <p>
+            That is the whole company in one sentence:{" "}
             <span className="text-text">
-              Pulse is our answer: every claim, on the record.
+              invisible in the workflow, visible in the log.
             </span>
           </p>
         </div>
-      </section>
 
-      <section className="border-t border-line py-20 md:py-24">
-        <div className="container-wide">
-          <Reveal className="mb-12 max-w-2xl">
-            <Eyebrow accent="pulse">PRINCIPLES</Eyebrow>
-            <h2 className="mt-4 text-[length:var(--text-h2)] text-balance">
-              How we work, in five lines.
-            </h2>
-          </Reveal>
-          <div className="grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-            {PRINCIPLES.map((p, i) => (
-              <Reveal key={p.title} delay={i * 0.05} className="flex flex-col gap-3 bg-base p-7">
-                <span className="tabular font-mono text-sm text-pulse">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="font-display text-lg font-semibold text-text">{p.title}</h3>
-                <p className="text-sm text-muted text-pretty">{p.body}</p>
+        {/* The founding conviction — a signature-line moment. */}
+        <figure className="mt-10 rounded-2xl border border-hairline bg-emerald-deep/40 p-8 md:p-10">
+          <blockquote className="font-display text-2xl leading-snug text-balance text-text md:text-3xl">
+            &ldquo;A pharmacist&rsquo;s license shouldn&rsquo;t be spent on fax
+            machines and hold music.&rdquo;
+          </blockquote>
+          <figcaption className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <span className="mono-label">
+              The reason SSVP exists — your license goes to patients, not paperwork.
+            </span>
+            <SignOffStamp label="THE HUMAN STAYS ON THE GATE" />
+          </figcaption>
+        </figure>
+      </SectionShell>
+
+      {/* ── THE THREE GOVERNING WORDS ─────────────────────────────────── */}
+      <SectionShell
+        className="border-t border-hairline"
+        width="wide"
+        eyebrow="WHAT GOVERNS EVERYTHING"
+        title="Three words decide every line we ship."
+        intro="Not a mission statement. A specification. If a feature can't satisfy all three, it doesn't get built."
+      >
+        <div className="grid gap-4 md:grid-cols-3">
+          {PRINCIPLES.map((p, i) => {
+            const isVerified = p.word === "Verified";
+            return (
+              <Reveal
+                key={p.word}
+                delay={i * 0.06}
+                className="flex flex-col gap-5 rounded-2xl border border-hairline bg-emerald-deep/40 p-7 md:p-8"
+              >
+                <div className="flex items-center justify-between">
+                  <Glyph
+                    name={WORD_GLYPH[p.word as keyof typeof WORD_GLYPH]}
+                    className="size-7"
+                  />
+                  <span className="tabular font-mono text-sm text-mint-dim">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="font-display text-2xl text-text">{p.word}</h3>
+                <p className="text-muted text-pretty">{p.body}</p>
+                {isVerified && (
+                  <div className="mt-auto pt-2">
+                    <SignOffStamp label="PHARMACIST-VERIFIED" />
+                  </div>
+                )}
               </Reveal>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      </section>
+      </SectionShell>
 
-      <CTABand cta="Book a build call" />
+      {/* ── CONTACT ───────────────────────────────────────────────────── */}
+      <SectionShell className="border-t border-hairline">
+        <div className="flex flex-col gap-6 rounded-2xl border border-hairline bg-emerald-deep/40 p-8 md:flex-row md:items-center md:justify-between md:p-10">
+          <div className="max-w-xl">
+            <span className="mono-label">Talk to the builder</span>
+            <h2 className="mt-3 font-display text-2xl text-text text-balance">
+              No sales floor. Email the person writing the code.
+            </h2>
+          </div>
+          <a
+            href={`mailto:${SITE.email}`}
+            className="font-mono text-lg text-mint transition-colors hover:text-text"
+          >
+            {SITE.email}
+          </a>
+        </div>
+      </SectionShell>
+
+      <CTABand
+        title="Built by insiders. Verified by a pharmacist. Yours to watch on the log."
+        sub="A build call: we map your PrimeRx screens and show you exactly where the work gets done."
+      />
     </>
   );
 }

@@ -13,10 +13,11 @@ export function Wordmark({ className }: { className?: string }) {
       )}
     >
       <span
-        className="size-2 rounded-full bg-pulse animate-breathe"
+        className="size-2 rounded-full bg-mint animate-breathe"
         aria-hidden="true"
       />
       SSVP
+      <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-mint-dim">AI</span>
     </Link>
   );
 }
