@@ -39,7 +39,7 @@ export default function Home() {
         <div className="absolute inset-0">
           <GlassSceneMount poster={<GlassPoster />} />
         </div>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_40%,transparent,rgb(7_20_16/0.55)_75%,rgb(7_20_16/0.9))]" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_40%,transparent,rgb(10_18_32/0.5)_75%,rgb(10_18_32/0.85))]" aria-hidden="true" />
         <div className="container-page relative z-10 flex min-h-[100svh] flex-col justify-center py-28">
           <Eyebrow accent="pulse" className="animate-rise">SSVP AI · AN AI TECHNICIAN FOR PRIMERX</Eyebrow>
           <h1 className="mt-6 max-w-4xl text-[length:var(--text-display)] font-medium leading-[0.98] tracking-[-0.03em] text-balance">
@@ -65,8 +65,9 @@ export default function Home() {
       </section>
 
       {/* CH2 — THE ONE-LINER */}
-      <section className="border-b border-hairline py-32 md:py-48">
-        <div className="container-page">
+      <section className="relative overflow-hidden border-b border-hairline py-32 md:py-48">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-mesh animate-aurora opacity-70" />
+        <div className="container-page relative">
           <Reveal>
             <p className="max-w-5xl text-[length:var(--text-h1)] font-display leading-[1.04] tracking-[-0.02em] text-balance">
               They help you fill faster. <span className="text-mint">We make sure you keep the money — and survive the audit.</span>
@@ -295,16 +296,20 @@ export default function Home() {
       </SectionShell>
 
       {/* CH11 — THE ASK */}
-      <section className="border-t border-hairline py-24 md:py-32">
-        <div className="container-page text-center">
+      <section className="relative overflow-hidden border-t border-hairline py-24 md:py-32">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-mesh animate-aurora opacity-60" />
+        <div className="container-page relative text-center">
           <Reveal className="mx-auto max-w-3xl">
             <div className="mx-auto mb-8 max-w-sm">
               <PulseLine variant="converge" animate />
             </div>
-            <h2 className="text-[length:var(--text-h2)] text-balance">3–5 pilot pharmacies. One invisible technician.</h2>
+            <h2 className="text-[length:var(--text-h2)] text-balance">Put the invisible technician on your counter.</h2>
+            <p className="mx-auto mt-5 max-w-xl text-lg text-muted text-pretty">
+              We&apos;ll come back with a system and an ROI model against your own numbers — usually within a day.
+            </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href="/pilot" size="lg">Apply for the pilot <span aria-hidden>→</span></Button>
-              <Button href="/book" variant="secondary" size="lg">Book a build call</Button>
+              <Button href="/book" size="lg">Book a build call <span aria-hidden>→</span></Button>
+              <Button href="/roi" variant="secondary" size="lg">Run the numbers</Button>
             </div>
             <p className="mt-8 font-mono text-xs uppercase tracking-[0.12em] text-mint-dim">
               Buying group, wholesaler, or investor? <Link href="/investors" className="text-mint hover:text-text">Start here →</Link>

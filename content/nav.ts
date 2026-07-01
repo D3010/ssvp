@@ -12,7 +12,6 @@ export interface NavLink {
 export const PRIMARY_NAV: NavLink[] = [
   { label: "Platform", href: "/platform" },
   { label: "Why SSVP", href: "/why-ssvp" },
-  { label: "Roadmap", href: "/roadmap" },
   { label: "Security", href: "/security" },
   { label: "ROI", href: "/roi" },
 ];
@@ -56,7 +55,6 @@ export const FOOTER_NAV: { heading: string; links: NavLink[] }[] = [
       { label: "Platform", href: "/platform" },
       { label: "Security", href: "/security" },
       { label: "Why SSVP", href: "/why-ssvp" },
-      { label: "Roadmap", href: "/roadmap" },
       { label: "ROI", href: "/roi" },
     ],
   },

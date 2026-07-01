@@ -7,7 +7,7 @@ import { Glyph } from "@/components/ui/Glyph";
 import { StatusChip } from "@/components/ui/StatusChip";
 import { ExposureSelfCheck } from "@/components/pilot/ExposureSelfCheck";
 import { PilotForm } from "@/components/pilot/PilotForm";
-import { PHASES } from "@/content/roadmap";
+import type { Status } from "@/content/site.config";
 
 export const metadata: Metadata = {
   title: "Pilot program — SSVP AI",
@@ -16,8 +16,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/pilot" },
 };
 
-// The two phases a pilot starts inside — verbatim from the roadmap.
-const EARLY_PHASES = PHASES.filter((p) => p.id === "P1" || p.id === "P2");
+// The two phases a pilot starts inside.
+const EARLY_PHASES: { id: string; label: string; title: string; status: Status }[] = [
+  { id: "P1", label: "PHASE 1", title: "Auto-Typing", status: "in-build" },
+  { id: "P2", label: "PHASE 2", title: "Inventory + ID Capture", status: "in-build" },
+];
 
 const WHAT_YOU_GET: { glyph: GlyphName; title: string; body: string }[] = [
   {

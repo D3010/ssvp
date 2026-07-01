@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/product", priority: 0.9, freq: "monthly" },
     { path: "/platform", priority: 0.8, freq: "monthly" },
     { path: "/why-ssvp", priority: 0.8, freq: "monthly" },
-    { path: "/roadmap", priority: 0.7, freq: "monthly" },
     { path: "/security", priority: 0.8, freq: "monthly" },
     { path: "/roi", priority: 0.8, freq: "monthly" },
     { path: "/pilot", priority: 0.9, freq: "monthly" },

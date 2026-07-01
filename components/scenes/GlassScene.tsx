@@ -13,8 +13,8 @@ import { useSceneTier } from "@/lib/useSceneTier";
  * Mouse parallax ±2°. Bloom on TIER 2 only.
  */
 
-const MINT = "#7fe0b0";
-const MINT_DIM = "#3e8f6b";
+const MINT = "#5ac8fa";
+const MINT_DIM = "#5e90bd";
 const GOLD = "#e5b34e";
 
 // Field-row y positions inside the window (height ~2.8).
@@ -114,7 +114,7 @@ function Particles({ count }: { count: number }) {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial color={MINT} size={0.045} sizeAttenuation transparent opacity={0.9} blending={THREE.AdditiveBlending} depthWrite={false} />
+      <pointsMaterial color={MINT} size={0.055} sizeAttenuation transparent opacity={0.95} blending={THREE.AdditiveBlending} depthWrite={false} />
     </points>
   );
 }
@@ -124,9 +124,9 @@ function GlassPane() {
     <group position={[0, 0, 0.55]}>
       <mesh>
         <planeGeometry args={[4.6, 3.4]} />
-        <meshBasicMaterial color={"#0b2c1f"} transparent opacity={0.16} side={THREE.DoubleSide} />
+        <meshBasicMaterial color={"#16273f"} transparent opacity={0.18} side={THREE.DoubleSide} />
       </mesh>
-      <RectOutline w={4.6} h={3.4} color={MINT} opacity={0.22} />
+      <RectOutline w={4.6} h={3.4} color={MINT} opacity={0.28} />
     </group>
   );
 }
@@ -165,16 +165,20 @@ function Rig({ children }: { children: React.ReactNode }) {
   useFrame((state) => {
     const g = ref.current;
     if (!g) return;
-    // mouse parallax ±2° (~0.035 rad)
-    g.rotation.y += (state.pointer.x * 0.06 - g.rotation.y) * 0.05;
-    g.rotation.x += (-state.pointer.y * 0.04 - g.rotation.x) * 0.05;
+    const t = state.clock.elapsedTime;
+    // continuous slow drift + mouse parallax → feels alive even without a mouse
+    const targetY = state.pointer.x * 0.14 + Math.sin(t * 0.28) * 0.1;
+    const targetX = -state.pointer.y * 0.09 + Math.cos(t * 0.22) * 0.05;
+    g.rotation.y += (targetY - g.rotation.y) * 0.04;
+    g.rotation.x += (targetX - g.rotation.x) * 0.04;
+    g.position.y = Math.sin(t * 0.4) * 0.05;
   });
   return <group ref={ref}>{children}</group>;
 }
 
 export default function GlassScene() {
   const tier = useSceneTier();
-  const count = tier === 2 ? 420 : 220;
+  const count = tier === 2 ? 620 : 360;
 
   return (
     <Canvas

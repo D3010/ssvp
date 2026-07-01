@@ -1,19 +1,6 @@
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#4F46E5"/>
-      <stop offset="0.55" stop-color="#7C3AED"/>
-      <stop offset="1" stop-color="#A855F7"/>
-    </linearGradient>
-    <linearGradient id="sheen" x1="32" y1="0" x2="32" y2="44" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#ffffff" stop-opacity="0.30"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
-  <rect width="64" height="64" rx="16" fill="url(#sheen)"/>
-  <!-- Custom geometric S monogram: a single rounded stroke, font-independent so
-       it stays crisp and identical at every favicon size. -->
-  <path d="M44 23 C44 17 37 15.5 31 16.5 C23 17.8 19 22 20 27 C20.8 31 25 32.6 32 33.5 C39 34.4 44 36 44 41 C44 46 37 48.5 30 47.5 C23 46.5 20 43 20 39"
-        fill="none" stroke="#ffffff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect x="2" y="2" width="28" height="28" rx="8" fill="#0E1726"/>
+  <rect x="2.75" y="2.75" width="26.5" height="26.5" rx="7.25" stroke="#5AC8FA" stroke-opacity="0.55" stroke-width="1.5"/>
+  <path d="M6 17H11l1.7-8 3 13.5 2.2-9.5H21.5" stroke="#5AC8FA" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="24.4" cy="16.4" r="2.3" fill="#E5B34E"/>
 </svg>

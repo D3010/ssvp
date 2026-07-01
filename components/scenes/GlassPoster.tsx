@@ -12,8 +12,8 @@ export function GlassPoster() {
       <svg viewBox="0 0 640 360" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="glass-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#10402c" stopOpacity="0.35" />
-            <stop offset="1" stopColor="#0b2c1f" stopOpacity="0.1" />
+            <stop offset="0" stopColor="#1b2a44" stopOpacity="0.4" />
+            <stop offset="1" stopColor="#121c2e" stopOpacity="0.12" />
           </linearGradient>
         </defs>
         {/* streaming particles before the glass (chaotic) */}
@@ -23,18 +23,18 @@ export function GlassPoster() {
             cx={20 + ((i * 37) % 240)}
             cy={40 + ((i * 53) % 280)}
             r={1.4}
-            fill="#7fe0b0"
+            fill="#5ac8fa"
             opacity={0.5}
           />
         ))}
         {/* structured particles inside the rows */}
         {rows.map((y, r) =>
           Array.from({ length: 14 }).map((_, i) => (
-            <circle key={`s${r}-${i}`} cx={230 + i * 22} cy={y + 24} r={1.6} fill="#7fe0b0" opacity={0.85} />
+            <circle key={`s${r}-${i}`} cx={230 + i * 22} cy={y + 24} r={1.6} fill="#5ac8fa" opacity={0.85} />
           )),
         )}
         {/* wireframe window */}
-        <g stroke="#3e8f6b" fill="none" strokeWidth={1}>
+        <g stroke="#5e90bd" fill="none" strokeWidth={1}>
           <rect x="210" y="40" width="360" height="260" rx="6" opacity={0.7} />
           <rect x="210" y="40" width="360" height="34" rx="6" opacity={0.5} />
           {rows.map((y) => (
@@ -42,7 +42,7 @@ export function GlassPoster() {
           ))}
         </g>
         {/* emerald glass pane */}
-        <rect x="180" y="26" width="410" height="300" rx="8" fill="url(#glass-grad)" stroke="#7fe0b0" strokeOpacity={0.22} />
+        <rect x="180" y="26" width="410" height="300" rx="8" fill="url(#glass-grad)" stroke="#5ac8fa" strokeOpacity={0.22} />
         {/* the first gold check */}
         <g transform="translate(548, 76)">
           <circle r="11" fill="none" stroke="#e5b34e" strokeWidth={1.5} />

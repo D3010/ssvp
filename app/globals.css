@@ -1,64 +1,65 @@
 @import "tailwindcss";
 
 /* ================================================================== *
- * SSVP — PHARMACY NOIR design system.
+ * SSVP — MIDNIGHT NAVY design system.
  *
- * Deep emerald darkness (the after-hours pharmacy), monospace machine
- * labels, one warm metallic accent for the human hand that signs.
+ * Deep navy darkness, monospace machine labels, an ice-blue machine
+ * accent, and one warm metallic accent (gold) for the human who signs.
  *
  * TOKEN LAW (enforced by convention + grep):
- *   mint / mint-dim  → the MACHINE. data, links, live values, chart strokes.
+ *   ice-blue (mint/mint-dim tokens) → the MACHINE. data, links, live
+ *     values, chart strokes.
  *   gold / gold-bright → the HUMAN. verification only. Never decorative.
  *     Reserved for components under components/verification/*.
  *   risk → audit exposure / drift. Used sparingly, never for CTAs.
  *
- * Legacy semantic tokens (--color-pulse, --color-ice, brand-1..3) are
- * re-pointed to noir/mint values so every inherited utility cascades
- * without per-component churn; --color-pulse == the mint machine accent.
+ * The color TOKEN NAMES (obsidian/emerald/mint) are retained from the
+ * original build so every inherited utility cascades without churn; the
+ * VALUES are navy + ice. --color-pulse == the ice-blue machine accent.
  * ================================================================== */
 @theme {
-  /* ── surfaces (dark-first) ─────────────────────────────────────── */
-  --color-obsidian: #071410; /* page ground */
-  --color-emerald-deep: #0b2c1f; /* panels, cards */
-  --color-emerald: #10402c; /* elevated surfaces, hover */
+  /* ── surfaces (dark-first, navy) ───────────────────────────────── */
+  --color-obsidian: #0a1220; /* page ground */
+  --color-emerald-deep: #121c2e; /* panels, cards */
+  --color-emerald: #1b2a44; /* elevated surfaces, hover */
 
-  --color-base: #071410; /* → obsidian */
-  --color-surface: #0b2c1f; /* → emerald-deep */
-  --color-surface-2: #10402c; /* → emerald */
-  --color-line: rgb(226 240 232 / 0.1); /* hairline on dark */
-  --color-hairline: rgb(226 240 232 / 0.1);
+  --color-base: #0a1220;
+  --color-surface: #121c2e;
+  --color-surface-2: #1b2a44;
+  --color-line: rgb(210 224 240 / 0.1); /* hairline on dark */
+  --color-hairline: rgb(210 224 240 / 0.1);
 
-  /* ── machine accent (mint) ─────────────────────────────────────── */
-  --color-mint: #7fe0b0;
-  --color-mint-dim: #3e8f6b;
-  --color-pulse: #7fe0b0; /* legacy alias → mint */
-  --color-pulse-dim: #3e8f6b; /* legacy alias → mint-dim */
-  --color-ice: #3e8f6b; /* legacy alias → mint-dim */
+  /* ── machine accent (ice blue) ─────────────────────────────────── */
+  --color-mint: #5ac8fa;
+  --color-mint-dim: #5e90bd;
+  --color-pulse: #5ac8fa; /* legacy alias → ice */
+  --color-pulse-dim: #5e90bd;
+  --color-ice: #5e90bd;
 
   /* ── human accent (GOLD — verification only) ───────────────────── */
   --color-gold: #c9973f;
   --color-gold-bright: #e5b34e;
 
   /* ── paper (light contrast beats) ──────────────────────────────── */
-  --color-bone: #f2efe6;
-  --color-ink: #101613; /* text on bone/gold */
+  --color-bone: #eef3f8;
+  --color-ink: #0e1726; /* text on paper/gold */
 
   /* ── type ──────────────────────────────────────────────────────── */
-  --color-text: #e6f0ea; /* body on obsidian (AA) */
-  --color-muted: #8ba99a; /* secondary text on dark */
-  --color-danger: #d96a4a;
-  --color-risk: #d96a4a;
+  --color-text: #e6edf5; /* body on navy (AA) */
+  --color-muted: #93a6bd; /* secondary text on dark */
+  --color-danger: #e0714f;
+  --color-risk: #e0714f;
 
-  /* legacy gradient stops → emerald→mint sweep */
-  --brand-1: #10402c;
-  --brand-2: #3e8f6b;
-  --brand-3: #7fe0b0;
+  /* legacy gradient stops → navy→ice sweep */
+  --brand-1: #1b2a44;
+  --brand-2: #5e90bd;
+  --brand-3: #5ac8fa;
 
   --font-display: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", "Menlo", monospace;
 
-  /* fluid type scale — museum-huge display for pharmacy noir */
+  /* fluid type scale — museum-huge display */
   --text-display: clamp(2.75rem, 8vw, 8.5rem);
   --text-h1: clamp(2.4rem, 6vw, 6rem);
   --text-h2: clamp(1.9rem, 4vw, 4rem);
@@ -89,7 +90,6 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* numbers: tabular, in the display grotesk */
   .tabular {
     font-family: var(--font-display);
     font-variant-numeric: tabular-nums;
@@ -108,7 +108,6 @@
     color: var(--color-text);
   }
 
-  /* the mono "machine speaking" register — eyebrows, labels, chips */
   .mono-label {
     font-family: var(--font-mono);
     text-transform: uppercase;
@@ -156,15 +155,13 @@
     text-wrap: pretty;
   }
 
-  /* mint machine-accent gradient for the rare highlighted word */
   .gradient-text {
-    background: linear-gradient(110deg, var(--color-mint-dim), var(--color-mint) 60%, #b9f4d6);
+    background: linear-gradient(110deg, var(--color-mint-dim), var(--color-mint) 60%, #b9e6ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* gold gradient — VERIFICATION headlines only */
   .gold-text {
     background: linear-gradient(110deg, var(--color-gold), var(--color-gold-bright));
     -webkit-background-clip: text;
@@ -173,15 +170,15 @@
   }
 
   .headline-sheen {
-    background: linear-gradient(180deg, #ffffff 0%, var(--color-text) 55%, #a9c6b7 100%);
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-text) 55%, #a9bdd6 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* fine dot-grid at 2–3% — the PDF back-cover texture, fixed */
+  /* fine dot-grid at 2–3% — fixed */
   .bg-dots {
-    background-image: radial-gradient(rgb(127 224 176 / 0.06) 1px, transparent 1.4px);
+    background-image: radial-gradient(rgb(90 200 250 / 0.06) 1px, transparent 1.4px);
     background-size: 24px 24px;
   }
 
@@ -199,32 +196,30 @@
     background-size: 32px 32px;
   }
 
-  /* ambient emerald depth behind hero / CTA (no lavender) */
+  /* ambient navy depth behind hero / CTA */
   .bg-mesh {
     background-image:
-      radial-gradient(50% 60% at 15% 0%, rgb(16 64 44 / 0.55), transparent 70%),
-      radial-gradient(45% 55% at 90% 5%, rgb(62 143 107 / 0.18), transparent 70%),
-      radial-gradient(60% 65% at 70% 100%, rgb(11 44 31 / 0.7), transparent 70%);
+      radial-gradient(50% 60% at 15% 0%, rgb(27 42 68 / 0.6), transparent 70%),
+      radial-gradient(45% 55% at 90% 5%, rgb(90 200 250 / 0.12), transparent 70%),
+      radial-gradient(60% 65% at 70% 100%, rgb(10 18 32 / 0.8), transparent 70%);
   }
 
   .glow-mint {
     box-shadow:
-      0 0 0 1px rgb(127 224 176 / 0.16),
-      0 18px 50px -16px rgb(127 224 176 / 0.28);
+      0 0 0 1px rgb(90 200 250 / 0.16),
+      0 18px 50px -16px rgb(90 200 250 / 0.28);
   }
   .glow-gold {
     box-shadow:
       0 0 0 1px rgb(201 151 63 / 0.35),
       0 18px 50px -16px rgb(201 151 63 / 0.4);
   }
-  /* legacy alias */
   .glow-pulse {
     box-shadow:
-      0 0 0 1px rgb(127 224 176 / 0.16),
-      0 18px 50px -16px rgb(127 224 176 / 0.28);
+      0 0 0 1px rgb(90 200 250 / 0.16),
+      0 18px 50px -16px rgb(90 200 250 / 0.28);
   }
 
-  /* dark emerald panel — depth from hairlines + luminance, not shadow */
   .panel {
     background: color-mix(in srgb, var(--color-emerald-deep) 92%, transparent);
     border: 1px solid var(--color-hairline);
@@ -232,19 +227,19 @@
   }
 
   .panel-mint {
-    border-color: rgb(127 224 176 / 0.28);
-    box-shadow: 0 24px 60px -30px rgb(127 224 176 / 0.35);
+    border-color: rgb(90 200 250 / 0.28);
+    box-shadow: 0 24px 60px -30px rgb(90 200 250 / 0.35);
   }
   .panel-pulse {
-    border-color: rgb(127 224 176 / 0.28);
-    box-shadow: 0 24px 60px -30px rgb(127 224 176 / 0.35);
+    border-color: rgb(90 200 250 / 0.28);
+    box-shadow: 0 24px 60px -30px rgb(90 200 250 / 0.35);
   }
   .panel-gold {
     border-color: rgb(201 151 63 / 0.4);
     box-shadow: 0 24px 60px -30px rgb(201 151 63 / 0.4);
   }
 
-  /* GLASS = the material of the Overlay: emerald tint, hairline, top light */
+  /* GLASS = the material of the Overlay */
   .glass {
     background: color-mix(in srgb, var(--color-emerald-deep) 62%, transparent);
     backdrop-filter: blur(14px) saturate(130%);
@@ -256,20 +251,19 @@
     background: color-mix(in srgb, var(--color-emerald-deep) 55%, transparent);
     border: 1px solid var(--color-hairline);
     box-shadow:
-      inset 0 1px 0 0 rgb(226 240 232 / 0.08),
+      inset 0 1px 0 0 rgb(210 224 240 / 0.08),
       0 30px 70px -30px rgb(0 0 0 / 0.55);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: var(--radius-card);
   }
 
-  /* paper interlude — inverts to bone for contrast beats */
   .paper {
     background: var(--color-bone);
     color: var(--color-ink);
   }
   .paper * {
-    border-color: rgb(16 22 19 / 0.12);
+    border-color: rgb(14 23 38 / 0.12);
   }
 
   .radial-fade {
@@ -284,7 +278,6 @@
     transform: translateZ(40px);
   }
 
-  /* perf: skip far-offscreen sections until near the viewport */
   .cv-auto {
     content-visibility: auto;
     contain-intrinsic-size: auto 760px;
@@ -351,9 +344,7 @@
   animation: ssvp-fade-in 0.4s var(--ease-out-quint) both;
 }
 
-/* ── scroll reveal ────────────────────────────────────────────────────
-   The hidden state is added by JS after mount (see components/ui/Reveal),
-   so the server HTML is always visible — no blank-page-without-JS bug. */
+/* ── scroll reveal (JS adds the hidden state post-mount) ──────────── */
 .reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -416,23 +407,23 @@
   animation: ssvp-scan 3s ease-in-out infinite;
 }
 
-/* breathing LIVE dot (mint) */
+/* breathing LIVE dot (ice) */
 @keyframes ssvp-breathe {
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 rgb(127 224 176 / 0.5);
+    box-shadow: 0 0 0 0 rgb(90 200 250 / 0.5);
   }
   50% {
     opacity: 0.75;
-    box-shadow: 0 0 0 6px rgb(127 224 176 / 0);
+    box-shadow: 0 0 0 6px rgb(90 200 250 / 0);
   }
 }
 .animate-breathe {
   animation: ssvp-breathe 2.4s var(--ease-out-quint) infinite;
 }
 
-/* gold verification pulse — for the pharmacist gate button */
+/* gold verification pulse */
 @keyframes ssvp-gold-pulse {
   0%,
   100% {

@@ -101,12 +101,6 @@ export function Nav() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link
-            href="/pilot"
-            className="hidden font-mono text-xs uppercase tracking-[0.12em] text-mint hover:text-text sm:inline-flex"
-          >
-            Pilot program
-          </Link>
           <Button href="/book" variant="primary" size="md" className="hidden sm:inline-flex">
             Book a build call
             <span aria-hidden="true">→</span>
@@ -144,9 +138,6 @@ export function Nav() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/pilot" className="rounded-lg px-2 py-2.5 text-base text-mint">
-              Pilot program
-            </Link>
             <Button href="/book" variant="primary" size="lg" className="mt-3 w-full">
               Book a build call →
             </Button>
